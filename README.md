@@ -1,8 +1,6 @@
-# simple-react-full-stack
+# Count Me In
 
-[![Build Status](https://travis-ci.org/crsandeep/simple-react-full-stack.svg?branch=master)](https://travis-ci.org/crsandeep/simple-react-full-stack)
-
-This is a boilerplate to build a full stack web application using React, Node.js, Express and Webpack. It is also configured with webpack-dev-server, eslint, prettier and babel.
+Based on a boiler plate to build a full stack web application using React, Node.js, Express and Webpack. It is also configured with webpack-dev-server, eslint, prettier and babel.
 
 - [simple-react-full-stack](#simple-react-full-stack)
   - [Introduction](#introduction)
