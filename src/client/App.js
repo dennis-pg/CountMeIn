@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import './app.css';
 import { ThemeProvider } from '@emotion/react';
 import { createTheme } from '@mui/material';
-import Navbar from './shared/components/Navbar.js/Navbar';
+import Navbar from './shared/components/Navbar';
 
 const theme = createTheme({
   palette: {
