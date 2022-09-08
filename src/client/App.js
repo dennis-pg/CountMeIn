@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './app.css';
+import HomePage from './pages/HomePage';
 import ReactImage from './react.png';
 
 export default class App extends Component {
@@ -15,8 +16,7 @@ export default class App extends Component {
     const { username } = this.state;
     return (
       <div>
-        {username ? <h1>{`Hello ${username}`}</h1> : <h1>Loading.. please wait!</h1>}
-        <img src={ReactImage} alt="react" />
+        <HomePage/>
       </div>
     );
   }
