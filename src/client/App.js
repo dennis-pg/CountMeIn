@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import './app.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import HomePage from './pages/HomePage';
 import ReactImage from './react.png';
+import Signin from "./pages/SignIn";
+import Signup from "./pages/SignUp";
 
 export default class App extends Component {
   state = { username: null };
@@ -14,10 +18,14 @@ export default class App extends Component {
   render() {
     const { username } = this.state;
     return (
-      <div>
-        {username ? <h1>{`Hello ${username}`}</h1> : <h1>Loading.. please wait!</h1>}
-        <img src={ReactImage} alt="react" />
-      </div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/signin" element={<Signin />} />
+          <Route path="/profile" element={<Signin />} />
+          <Route path="/signup" element={<Signup />} />
+        </Routes>
+      </BrowserRouter>
     );
   }
 }
