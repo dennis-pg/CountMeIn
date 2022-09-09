@@ -7,6 +7,8 @@ import Navbar from './shared/components/Navbar';
 import Login from './pages/login/index';
 import SignUp from './pages/login/components/SignUp';
 import { AuthProvider } from "./contexts/AuthContext"
+import { useAuth } from "./contexts/AuthContext"
+
 
 const theme = createTheme({
   palette: {
@@ -17,13 +19,15 @@ const theme = createTheme({
 });
 
 const Sample = () => (
+  
   <div>
     <Navbar />
-    <p>Sample</p>
+    <p>Current User </p>
   </div>
 );
 
 export default () => (
+  
   <ThemeProvider theme={theme}>
     <AuthProvider>
     <Routes>
@@ -34,3 +38,10 @@ export default () => (
     </AuthProvider>
   </ThemeProvider>
 );
+
+
+
+
+
+
+

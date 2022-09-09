@@ -2,9 +2,39 @@ import * as React from 'react';
 import {
   TextField, Button, Grid
 } from '@mui/material';
+import { useRef, useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { useAuth } from "../../../contexts/AuthContext"
 
 const SignUp = () => {
-  console.log();
+  const emailRef = useRef('')
+  const passwordRef = useRef('')
+  const history = useNavigate()
+  const { signup } = useAuth()
+  const [error, setError] = useState("")
+  const [loading, setLoading] = useState(false)
+  
+  async function handleSubmit(e) {
+    console.log("handleSubmit");
+
+    
+    e.preventDefault()
+    try {
+      setError("")
+      setLoading(true)
+      await signup(emailRef.current.value, passwordRef.current.value)
+      history.push("/")
+
+    } catch(err) {
+      console.log("failed"+err);
+    
+      setError("Failed to create an account")
+    }
+
+    setLoading(false)
+  }
+
+  
   return (
     <>
       <Grid container spacing={2}>
@@ -36,6 +66,7 @@ const SignUp = () => {
         id="email"
         label="Email Address"
         name="email"
+        inputRef={emailRef}
         autoComplete="email"
       />
       <TextField
@@ -46,12 +77,14 @@ const SignUp = () => {
         label="Password"
         type="password"
         id="password"
+        inputRef={passwordRef}
         autoComplete="current-password"
       />
       <Button
         type="submit"
         fullWidth
         variant="contained"
+        onClick={handleSubmit}
         sx={{ mt: 3, mb: 2 }}
       >
         Sign Up
