@@ -15,13 +15,34 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import { useAuth } from "../../../contexts/AuthContext"
+import { useNavigate } from "react-router-dom"
+import { useState } from "react"
 
-const pages = ['Products', 'Pricing', 'Blog'];
+const pages = ['Products', 'Pricing', 'Login'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const history = useNavigate()
+  const [error, setError] = useState("")
+  const { logout } = useAuth()
+
+
+  async function handleLogout() {
+    setError("")
+    console.log("handling logout")
+
+    try {
+      await logout()
+      history.push("/login")
+    } catch(e) {
+      console.log("Failed handling logout"+e)
+
+      setError("Failed to log out")
+    }
+  }
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -35,8 +56,22 @@ const ResponsiveAppBar = () => {
   };
 
   const handleCloseUserMenu = () => {
+    
     setAnchorElUser(null);
   };
+
+  const eventHandler = (option) => (event) => { 
+    console.log("event: "+option);
+    if(option=="Logout")
+    {
+      handleLogout()
+    }
+    if(option=="Login")
+    {
+      history("/login")
+    }
+  }
+
 
   return (
     <AppBar position="static">
@@ -91,7 +126,7 @@ const ResponsiveAppBar = () => {
               }}
             >
               {pages.map(page => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <MenuItem key={page} onClick={eventHandler(page)}>
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
@@ -120,7 +155,7 @@ const ResponsiveAppBar = () => {
             {pages.map(page => (
               <Button
                 key={page}
-                onClick={handleCloseNavMenu}
+                onClick={eventHandler(page)}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 {page}
@@ -151,7 +186,7 @@ const ResponsiveAppBar = () => {
               onClose={handleCloseUserMenu}
             >
               {settings.map(setting => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                <MenuItem key={setting} onClick={eventHandler(setting)}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
