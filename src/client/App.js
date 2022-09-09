@@ -4,6 +4,7 @@ import './app.css';
 import { ThemeProvider } from '@emotion/react';
 import { createTheme } from '@mui/material';
 import Navbar from './shared/components/Navbar';
+import Login from './pages/login/index';
 
 const theme = createTheme({
   palette: {
@@ -20,16 +21,10 @@ const Sample = () => (
   </div>
 );
 
-const Sample2 = () => (
-  <div>
-    <p>Sample2</p>
-  </div>
-);
-
 export default () => (
   <ThemeProvider theme={theme}>
     <Routes>
-      <Route path="/sample" element={<Sample2 />} />
+      <Route path="/login" element={<Login />} />
       <Route path="/" element={<Sample />} />
     </Routes>
   </ThemeProvider>
