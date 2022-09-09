@@ -6,9 +6,8 @@ import { createTheme } from '@mui/material';
 import Navbar from './shared/components/Navbar';
 import Login from './pages/login/index';
 import SignUp from './pages/login/components/SignUp';
-import { AuthProvider } from "./contexts/AuthContext"
-import { useAuth } from "./contexts/AuthContext"
-
+import { AuthProvider } from './contexts/AuthContext'
+import ManageDataPoints from './pages/member/DataPoint/index';
 
 const theme = createTheme({
   palette: {
@@ -18,30 +17,22 @@ const theme = createTheme({
   },
 });
 
-const Sample = () => (
-  
+const Sample = () => (  
   <div>
     <Navbar />
     <p>Sample</p>
   </div>
 );
 
-export default () => (
-  
+export default () => ( 
   <ThemeProvider theme={theme}>
     <AuthProvider>
-    <Routes>
-      <Route path="/signup" element={<SignUp />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/" element={<Sample />} />
-    </Routes>
+      <Routes>
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/manage-data-points" element={<ManageDataPoints />} />
+        <Route path="/" element={<Sample />} />
+      </Routes>
     </AuthProvider>
   </ThemeProvider>
 );
-
-
-
-
-
-
-
