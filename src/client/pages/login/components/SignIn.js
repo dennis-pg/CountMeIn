@@ -6,6 +6,7 @@ import {
 import { useAuth } from "../../../contexts/AuthContext"
 import { useNavigate } from "react-router-dom"
 import { useRef, useState } from "react"
+import Alert from '@mui/material/Alert';
 
 const SignIn = () => {
   const emailRef = useRef('')
@@ -13,6 +14,7 @@ const SignIn = () => {
   const history = useNavigate()
   const { login } = useAuth()
   const [error, setError] = useState("")
+  
   const [loading, setLoading] = useState(false)
   
   async function handleSubmit(e) {
@@ -22,10 +24,10 @@ const SignIn = () => {
       setError("")
       setLoading(true)
       await login(emailRef.current.value, passwordRef.current.value)
-      history.push("/")
+      history("/")
     } catch(e) {
       console.log("Failed"+e)
-      setError("Failed to log in")
+      setError("Failed to log in,"+e)
     }
 
     setLoading(false)
@@ -35,6 +37,7 @@ const SignIn = () => {
   return (
     <>
       <Grid container>
+      {error && <Alert variant="danger">{error}</Alert>}
         <TextField
           margin="normal"
           required

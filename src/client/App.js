@@ -22,7 +22,7 @@ const Sample = () => (
   
   <div>
     <Navbar />
-    <p>Current User </p>
+    <p>Sample</p>
   </div>
 );
 

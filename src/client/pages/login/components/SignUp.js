@@ -5,38 +5,48 @@ import {
 import { useRef, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useAuth } from "../../../contexts/AuthContext"
+import Alert from '@mui/material/Alert';
 
 const SignUp = () => {
   const emailRef = useRef('')
   const passwordRef = useRef('')
   const history = useNavigate()
-  const { signup } = useAuth()
+  const { signup,updateUserType } = useAuth()
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
-  
-  async function handleSubmit(e) {
-    console.log("handleSubmit");
-
-    
+  // const [userType,setUserType] = useState("") 
+  function handleMemberSignup(e)
+  {
     e.preventDefault()
+    handleSubmit("Member")
+  }
+  function handleBuyerSignup(e)
+  {
+    e.preventDefault()
+    handleSubmit("Buyer")
+  }
+  
+  async function handleSubmit(userType) {
+    console.log("handleSubmit");  
+    
     try {
       setError("")
       setLoading(true)
-      await signup(emailRef.current.value, passwordRef.current.value)
-      history.push("/")
+      await signup(emailRef.current.value, passwordRef.current.value,userType)
+      history('/')
 
     } catch(err) {
-      console.log("failed"+err);
+      console.log("Failed:"+err);
     
-      setError("Failed to create an account")
+      setError("Failed to create an account:"+err)
     }
-
     setLoading(false)
   }
 
   
   return (
     <>
+      {error && <Alert variant="danger">{error}</Alert>}
       <Grid container spacing={2}>
         <Grid item xs={6}>
           <TextField
@@ -84,10 +94,19 @@ const SignUp = () => {
         type="submit"
         fullWidth
         variant="contained"
-        onClick={handleSubmit}
+        onClick={handleMemberSignup}
         sx={{ mt: 3, mb: 2 }}
       >
-        Sign Up
+        Sign Up as Member
+      </Button>
+      <Button
+        type="submit"
+        fullWidth
+        variant="contained"
+        onClick={handleBuyerSignup}
+        sx={{ mt: 3, mb: 2 }}
+      >
+        Sign Up as Buyer
       </Button>
     </>
   );
