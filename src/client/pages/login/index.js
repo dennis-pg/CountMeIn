@@ -1,10 +1,11 @@
 import * as React from 'react';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import {
-  Divider, Stack, Typography, Grid, Box, Paper, Link, TextField, CssBaseline, Button, Avatar
+  Divider, Stack, Typography, Grid, Box, Paper, CssBaseline, Avatar
 } from '@mui/material';
 import GoogleButton from './components/GoogleButton';
 import FacebookButton from './components/FacebookButton';
+import Email from './components/Email';
 
 
 const Login = () => {
@@ -57,40 +58,7 @@ const Login = () => {
 
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
             <Divider sx={{ mb: 4 }}><Typography sx={{ color: '#AAAAAA' }}>or continue with email</Typography></Divider>
-
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign In
-            </Button>
-            <Box sx={{ m: '2em 0em', alignSelf: 'start' }}>
-              <Link href="/forgot-password" variant="body2">
-                Forgot password?
-              </Link>
-            </Box>
+            <Email />
           </Box>
         </Box>
       </Grid>
