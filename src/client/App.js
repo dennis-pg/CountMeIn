@@ -5,6 +5,8 @@ import { ThemeProvider } from '@emotion/react';
 import { createTheme } from '@mui/material';
 import Navbar from './shared/components/Navbar';
 import Login from './pages/login/index';
+import SignUp from './pages/login/components/SignUp';
+import { AuthProvider } from "./contexts/AuthContext"
 
 const theme = createTheme({
   palette: {
@@ -23,9 +25,12 @@ const Sample = () => (
 
 export default () => (
   <ThemeProvider theme={theme}>
+    <AuthProvider>
     <Routes>
+      <Route path="/signup" element={<SignUp />} />
       <Route path="/login" element={<Login />} />
       <Route path="/" element={<Sample />} />
     </Routes>
+    </AuthProvider>
   </ThemeProvider>
 );
