@@ -3,31 +3,38 @@ import {
   Typography, Grid, Switch, TextField,
 } from '@mui/material';
 
-const PolicyControls = () => (
-  <>
-    {['Government', 'Academia', 'Commercial'].map(
-      category => (
-        <Grid container spacing={3} sx={{ mb: 2 }} key={category}>
-          <Grid item xs={4}>
-            <Typography sx={{ mt: 1 }}>
-              {`${category}`}
-            </Typography>
-          </Grid>
-          <Grid item xs={4}>
-            <Switch />
-          </Grid>
-          <Grid item xs={4}>
-            <TextField
-              label="Base price"
-              name="baseprice"
-              type="number"
-              size="small"
-            />
-          </Grid>
+const PolicyControls = ({data, category, onChange}) => {
+
+  return(
+    <>
+      <Grid container spacing={3} sx={{ mb: 2 }} key={category}>
+        <Grid item xs={4}>
+          <Typography sx={{ mt: 1 }}>
+            {`${category}`}
+          </Typography>
         </Grid>
-      )
-    )}
-  </>
-);
+        <Grid item xs={4}>
+          <Switch 
+            name={"access"}
+            checked={data.access ? data.access : null}
+            onChange={(event) => {console.log("event", event.target.checked); onChange(data, event.target.name, event.target.checked)}}
+          />
+        </Grid>
+        <Grid item xs={4}>
+          <TextField
+            label="Base price"
+            name={"base_price"}
+            value={data.base_price}
+            type="number"
+            size="small"
+            onChange={(event) => {onChange(data, event.target.name, event.target.value)}}
+          />
+        </Grid>
+      </Grid>
+    </>
+  );
+}
+  
+  
 
 export default PolicyControls;

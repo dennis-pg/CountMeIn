@@ -1,6 +1,6 @@
 import * as firebase from "firebase/app";
 import "firebase/auth"
-
+import "firebase/firestore"
 const app = firebase.initializeApp({
   apiKey: "AIzaSyCnvXnzoSMWlPIq0gRH-yi6TO_Hplg7Y4o",
   authDomain: "countmein-4f942.firebaseapp.com",
@@ -13,5 +13,4 @@ const app = firebase.initializeApp({
 
 export const auth = app.auth()
 export default app
-
 
