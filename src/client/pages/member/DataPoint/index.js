@@ -8,7 +8,7 @@ import Layout from '../../../shared/components/Layout';
 import DataPointAccordion from './components/DataPointAccordion/index';
 import DefaultDataPointValuesModal from './components/DefaultDataModal/index';
 import { ManageDataPointsContextFormProvider } from '../contexts/ManageDataPointsFormContext';
-import { getUserDetails } from '../../../FirestoreMember'
+import { getUserDetails } from '../../../FirestoreMember.js';
 
 const dataPointsObjArray = [{
     "data_point_name": 'Blood Pressure',
