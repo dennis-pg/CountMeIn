@@ -29,7 +29,49 @@ function FirestoreMember() {
       });
 
   }
+function getUserDetails(requestUserId) {
+  // setLoading(true);
 
+  memberRef
+    .onSnapshot((querySnapshot) => {
+      const items = [];
+      querySnapshot.forEach((doc) => {
+        items.push();
+        var c=doc.data();
+        if(c.user_id==requestUserId)
+        {
+        const dataPointsList = ['Blood Pressure', 'SpO2', 'RBC Count', 'SGPT', 'SGOT', 'Serum Creatinine', 'HDL-Cholestorol', 'LDL-Cholestorol', 'TSH'];
+        for (var i = 0; i < dataPointsList.length; i++)
+        {   
+            var key=dataPointsList[i]
+            var data_item={
+                "Data Point Name": key,
+                "Govt": {
+                    "access": c['Access']['Government']['master_access'] || c['Access']['Government'][key],
+                    "basePrice": c['basePrice'][key]
+                },
+                "Commercial": {
+                    "access": c['Access']['Commercial']['master_access'] || c['Access']['Commercial'][key],
+                    "basePrice": c['basePrice'][key]
+                },
+                "Academia": {
+                    "access": c['Access']['Academia']['master_access'] || c['Access']['Academia'][key],
+                    "basePrice": c['basePrice'][key]
+                }
+            }
+            items.push(data_item);
+        }   
+        }
+        console.log(items);
+        return items;
+      });
+      setMember(items);
+      // setLoading(false);
+    });
+    return items;
+}
+
+}
   useEffect(() => {
     getUserMember();
     // eslint-disable-next-line
@@ -39,7 +81,6 @@ function FirestoreMember() {
   function addUserHealthMetric(userId,data) {
     memberRef.doc(userId).set({foo:'bar'}, {merge: true})
   }
-
 
 
   // EDIT FUNCTION
