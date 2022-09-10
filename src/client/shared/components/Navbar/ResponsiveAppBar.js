@@ -69,10 +69,10 @@ const ResponsiveAppBar = () => {
     else if(option=="Login")
     {
       history("/login")
-    }
-    else if(option=="FAQ")
-    {
+    } else if(option=="FAQ"){
       history("/faq")
+    } else if(option == "Dashboard"){
+      history("/manage-data-points");
     }
   }
 
