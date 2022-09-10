@@ -9,6 +9,7 @@ import DataPointAccordion from './components/DataPointAccordion/index';
 import DefaultDataPointValuesModal from './components/DefaultDataModal/index';
 import { ManageDataPointsContextFormProvider } from '../contexts/ManageDataPointsFormContext';
 import { getUserDetails } from '../../../FirestoreMember.js';
+import { addUserDetails } from '../../../FirestoreMember.js';
 
 const dataPointsObjArray = [{
     "data_point_name": 'Blood Pressure',
@@ -79,10 +80,19 @@ const ManageDataPoints = () => {
     console.log("handleChange",key,newValue, formState);
     setFormState({...formState, [key]: newValue});
  }
+ const handleSubmit = () =>
+ {
+  console.log("formState: ",formState);
+  addUserDetails("jghj21434",formState)
+ }
 
  React.useEffect(() => {
-  console.log("kfjhwsdefjwef", getUserDetails("TcB17gKybpPiIdNHZp9NeCxpFbd2"));
+  console.log("kfjhwsdefjwef", getUserDetails("jghj21434"));
  }, [])
+
+ React.useEffect(() => {
+  console.log("updated formState", formState);
+ }, [formState]);
 
   console.log(state.panel);
   return (
@@ -114,6 +124,18 @@ const ManageDataPoints = () => {
               >
                 Set Default Values
               </Button>
+              <Button
+                variant="outlined"
+                startIcon={<FileCopy />}
+                fullWidth={false}
+                type="submit"
+                fullWidth
+                onClick={() => {
+                  handleSubmit();
+                }}
+              >
+                Submit
+             </Button>
               <DefaultDataPointValuesModal open={state.modalOpen} handleClose={handleClose} />
             </Box>
           </Stack>

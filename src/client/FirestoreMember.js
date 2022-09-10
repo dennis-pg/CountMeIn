@@ -25,33 +25,36 @@ export function getUserDetails(requestUserId) {
       dataPointsObjArray.push();
       const c = doc.data();
       if (c.user_id == requestUserId) {
-        const dataPointsList = ['Blood Pressure', 'SpO2', 'RBC Count', 'SGPT', 'SGOT', 'Serum Creatinine', 'HDL-Cholestorol', 'LDL-Cholestorol', 'TSH'];
+        const dataPointsList = ['Blood Pressure','Cholestrol','SGBT', 'SpO2', 'RBC Count', 'SGPT', 'SGOT', 'Serum Creatinine', 'HDL-Cholestorol', 'LDL-Cholestorol', 'TSH'];
         for (let i = 0; i < dataPointsList.length; i++) {
           const key = dataPointsList[i];
+          if(c.basePrice[key]==undefined)
+          {
+            continue
+          }
           const dataItem = {
             data_point_name: key,
             access_control: [
               {
                 access_name: 'Government',
                 access: c.Access.Government.master_access || c.Access.Government[key],
-                base_price: c.basePrice[key]
+                base_price: c.basePrice[key].Government
               },
               {
                 access_name: 'Commercial',
                 access: c.Access.Commercial.master_access || c.Access.Commercial[key],
-                base_price: c.basePrice[key]
+                base_price: c.basePrice[key]['Commercial']
               },
               {
                 access_name: 'Academia',
                 access: c.Access.Academia.master_access || c.Access.Academia[key],
-                base_price: c.basePrice[key]
+                base_price: c.basePrice[key]['Academia']
               }
             ]
           };
           dataPointsObjArray.push(dataItem);
         }
       }
-      console.log(dataPointsObjArray);
       return dataPointsObjArray;
     });
 
@@ -62,7 +65,7 @@ export function getUserDetails(requestUserId) {
 
 // ADD FUNCTION
 export function addUserDetails(requestUserId, data) {
-  memberRef.doc(userId).set(transformDataToFireStore(requestUserId,data), { merge: true });
+  memberRef.doc(requestUserId).set(transformDataToFireStore(requestUserId,data), { merge: true });
 }
 
 // EDIT FUNCTION
@@ -96,14 +99,18 @@ function transformDataToFireStore(requestUserId,data) {
     basePrice:{},
     user_id: requestUserId,
   };
-  for (let i = 0; i < data.length; i++)
+  for (let i = 0; i < data['data'].length; i++)
   {
-    var data_point_name=data[i]['data_point_name']
-    var access_control=data[i]['access_control']
+    var data_point_name=data['data'][i]['data_point_name']
+    var access_control=data['data'][i]['access_control']
     for (let j = 0; j < access_control.length; j++)
     {
       responseData["Access"][access_control[j].access_name][data_point_name]=access_control[j].access
-      responseData["basePrice"][data_point_name] =access_control[j].base_price
+      if(responseData["basePrice"][data_point_name] == undefined)
+      {
+         responseData["basePrice"][data_point_name]={}
+      }
+      responseData["basePrice"][data_point_name][access_control[j].access_name]=access_control[j].base_price
     }
   }
   return responseData;
