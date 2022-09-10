@@ -39,7 +39,7 @@ export default () => (
         <Route path="/select-data-points" element={<SelectDataPoints />} />
         <Route path="/selection-results" element={<SelectionResults />} />
         <Route path="/faq" element={<Faq />} />
-        <Route path="/" element={<Sample />} />
+        <Route exact path="/" element={<Sample />} />
       </Routes>
     </AuthProvider>
   </ThemeProvider>
