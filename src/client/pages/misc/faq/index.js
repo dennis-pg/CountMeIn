@@ -4,6 +4,7 @@ import {
 } from '@mui/material';
 import * as React from 'react';
 import PropTypes from 'prop-types';
+import Layout from '../../../shared/components/Layout';
 
 
 const FaqData = [
@@ -19,19 +20,21 @@ const FaqData = [
 const Faq = () => {
   const [expanded, setExpanded] = React.useState(-1);
   return (
-    <Stack spacing={10} alignItems="center" sx={{ width: '100vw', paddingTop: 10 }}>
-      <Typography variant="h1">FAQs</Typography>
-      <Stack spacing={4} sx={{ width: '50vw', paddingBottom: 10 }}>
-        {FaqData.map((faq, index) => (
-          <QaCard
-            {...faq}
-            index={index}
-            expanded={expanded === index}
-            setExpanded={setExpanded}
-          />
-        ))}
+    <Layout>
+      <Stack spacing={10} alignItems="center" sx={{ width: '100vw', paddingTop: 10 }}>
+        <Typography variant="h2">FAQs</Typography>
+        <Stack spacing={4} sx={{ width: '50vw', paddingBottom: 10 }}>
+          {FaqData.map((faq, index) => (
+            <QaCard
+              {...faq}
+              index={index}
+              expanded={expanded === index}
+              setExpanded={setExpanded}
+            />
+          ))}
+        </Stack>
       </Stack>
-    </Stack>
+    </Layout>
   );
 };
 
@@ -64,10 +67,10 @@ const QaCard = ({
           }
         </Box>
         <Stack spacing={5} alignItems="start" justifyItems="start">
-          <Typography variant="body" mt={1.3}>{question}</Typography>
+          <Typography mt={1.3}>{question}</Typography>
           {
             expanded
-            && <Typography variant="body">{answer}</Typography>
+            && <Typography>{answer}</Typography>
           }
         </Stack>
       </Stack>

@@ -1,14 +1,16 @@
 import * as React from 'react';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import {
-  Divider, Stack, Typography, Grid, Box, Paper, CssBaseline, Avatar
+  Divider, Stack, Typography, Grid, Box, Paper, CssBaseline
 } from '@mui/material';
+import { useTheme } from '@emotion/react';
 import GoogleButton from './components/GoogleButton';
 import FacebookButton from './components/FacebookButton';
 import Email from './components/Email';
+import logoSrc from '../../../../public/images/Logo.svg';
 
 
 const Login = () => {
+  const theme = useTheme();
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -27,7 +29,7 @@ const Login = () => {
         sm={4}
         md={7}
         sx={{
-          backgroundImage: 'url(https://source.unsplash.com/random)',
+          backgroundImage: 'url(https://images.unsplash.com/photo-1521080755838-d2311117f767?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1562&q=80)',
           backgroundRepeat: 'no-repeat',
           backgroundColor: t => (t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900]),
           backgroundSize: 'cover',
@@ -44,9 +46,22 @@ const Login = () => {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
+          <Stack direction="row" alignItems="center">
+            <Box sx={{ mt: 1 }}>
+              <img alt="Count Me In Logo" src={logoSrc} width={80} height={80} />
+            </Box>
+            <Typography
+              variant="h6"
+              noWrap
+              sx={{
+                fontFamily: 'Montserrat',
+                textDecoration: 'none',
+                color: theme.palette.primary.main
+              }}
+            >
+              COUNT ME IN
+            </Typography>
+          </Stack>
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>

@@ -20,7 +20,9 @@ const results = {
 const SelectionResults = () => (
   <Layout>
     <Stack alignItems="center" mb={5} sx={{ paddingX: '25vw' }}>
-      <Typography variant="h2" sx={{ m: 2 }}>Results</Typography>
+      <Stack alignItems="center" p={5}>
+        <Typography variant="h2" sx={{ m: 2 }}>Results</Typography>
+      </Stack>
       <Box sx={{ width: '100%', paddingY: 8 }}>
         <DataPointSlider initialValue={10000} max={results.maximumDataPoints} />
       </Box>

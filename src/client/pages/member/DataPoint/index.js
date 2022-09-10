@@ -3,7 +3,6 @@ import {
   Stack, Typography, Grid, TextField, Button, Box
 } from '@mui/material';
 import { ExpandMore, FileCopy } from '@mui/icons-material';
-
 import Layout from '../../../shared/components/Layout';
 import DataPointAccordion from './components/DataPointAccordion/index';
 import DefaultDataPointValuesModal from './components/DefaultDataModal/index';
@@ -98,7 +97,9 @@ const ManageDataPoints = () => {
   return (
     <Layout>
       <Stack>
-        <Typography variant="h2" sx={{ m: 2 }}>Manage My Data Points</Typography>
+        <Stack alignItems="center" p={5}>
+          <Typography variant="h2" sx={{ m: 2 }}>Manage My Data Points</Typography>
+        </Stack>
         <Stack direction="row" m="2em 3em" justifyContent="space-between">
           <Stack spacing={2} direction="row" alignItems="start">
             <Box>

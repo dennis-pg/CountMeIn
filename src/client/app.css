@@ -1,3 +1,53 @@
 body {
   margin: auto;
+  background-color: #ebf1f1;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: local("Montserrat-Bold"),
+   url("../../public/fonts/Montserrat/Montserrat-Bold.ttf") format("truetype");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "Thiccboi";
+  font-weight: 200;
+  src: url("../../public/fonts/ThiccBoi/THICCCBOI-Thin.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Thiccboi";
+  font-weight: 300;
+  src: url("../../public/fonts/ThiccBoi/THICCCBOI-Light.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Thiccboi";
+  font-weight: 400;
+  src: url("../../public/fonts/ThiccBoi/THICCCBOI-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Thiccboi";
+  font-weight: 500;
+  src: url("../../public/fonts/ThiccBoi/THICCCBOI-Medium.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Thiccboi";
+  font-weight: 600;
+  src: url("../../public/fonts/ThiccBoi/THICCCBOI-SemiBold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Thiccboi";
+  font-weight: 800;
+  src: url("../../public/fonts/ThiccBoi/THICCCBOI-Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Thiccboi";
+  font-weight: 900;
+  src: url("../../public/fonts/ThiccBoi/THICCCBOI-ExtraBold.ttf") format("truetype");
 }

@@ -14,33 +14,34 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
-import { useAuth } from "../../../contexts/AuthContext"
 import { useNavigate } from "react-router-dom"
 import { useState } from "react"
+import { useTheme } from '@mui/material';
+import logoSrc from '../../../../../public/images/Logo.svg';
+import { useAuth } from '../../../contexts/AuthContext';
 
-const pages = ['Products', 'Pricing', 'Login'];
+
+const pages = ['FAQ', 'Login'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const history = useNavigate()
-  const [error, setError] = useState("")
-  const { logout } = useAuth()
+  const theme = useTheme();
+  const history = useNavigate();
+  const [error, setError] = useState('');
+  const { logout } = useAuth();
 
 
   async function handleLogout() {
-    setError("")
-    console.log("handling logout")
+    setError('');
+    console.log('handling logout');
 
     try {
-      await logout()
-      history.push("/login")
-    } catch(e) {
-      console.log("Failed handling logout"+e)
-
-      setError("Failed to log out")
+      await logout();
+      history.push('/login');
+    } catch (e) {
+      setError('Failed to log out');
     }
   }
 
@@ -56,7 +57,6 @@ const ResponsiveAppBar = () => {
   };
 
   const handleCloseUserMenu = () => {
-    
     setAnchorElUser(null);
   };
 
@@ -66,9 +66,13 @@ const ResponsiveAppBar = () => {
     {
       handleLogout()
     }
-    if(option=="Login")
+    else if(option=="Login")
     {
       history("/login")
+    }
+    else if(option=="FAQ")
+    {
+      history("/faq")
     }
   }
 
@@ -77,7 +81,9 @@ const ResponsiveAppBar = () => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+            <img alt="Count Me In Logo" src={logoSrc} width={60} height={60} />
+          </Box>
           <Typography
             variant="h6"
             noWrap
@@ -86,14 +92,12 @@ const ResponsiveAppBar = () => {
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
+              fontFamily: 'Montserrat',
               color: 'inherit',
               textDecoration: 'none',
             }}
           >
-            LOGO
+            COUNT ME IN
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -132,7 +136,9 @@ const ResponsiveAppBar = () => {
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          <Box sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}>
+            <img alt="Count Me In Logo" src={logoSrc} width={60} height={60} />
+          </Box>
           <Typography
             variant="h5"
             noWrap
@@ -142,16 +148,18 @@ const ResponsiveAppBar = () => {
               mr: 2,
               display: { xs: 'flex', md: 'none' },
               flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
+              fontFamily: 'Montserrat',
+              fontWeight: 600,
               color: 'inherit',
               textDecoration: 'none',
             }}
           >
-            LOGO
+            COUNT ME IN
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{
+            flexGrow: 1, justifyContent: 'flex-end', display: { xs: 'none', md: 'flex' }, mr: 10
+          }}
+          >
             {pages.map(page => (
               <Button
                 key={page}
