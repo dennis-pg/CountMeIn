@@ -29,10 +29,12 @@ const SelectDataPoints = () => {
   return (
     <Layout>
       <Stack alignItems="center" mb={5}>
-        <Typography variant="h2" sx={{ m: 2 }}>Select Data Points For Survey</Typography>
-        <Typography variant="h4" sx={{ m: 2, mt: 10 }}>Filters</Typography>
+        <Stack alignItems="center" p={5}>
+          <Typography variant="h2" sx={{ m: 2 }}>Select Data Points For Survey</Typography>
+        </Stack>
+        <Typography variant="h4" sx={{ m: 2, mt: 5, mb: 4 }}>Filters</Typography>
         <Filters />
-        <Typography variant="h4" sx={{ m: 2, mt: 10 }}>Data Points</Typography>
+        <Typography variant="h4" sx={{ m: 2, mt: 10, mb: 4 }}>Data Points</Typography>
         <Grid container spacing={2} px={15} alignItems="center" justifyContent="center" sx={{ textAlign: 'center' }}>
           {state.dataPointKeys.map(key => (
             <DataPointRow
@@ -44,7 +46,7 @@ const SelectDataPoints = () => {
             />
           ))}
         </Grid>
-        <Typography variant="h4" sx={{ m: 2, mt: 10 }}>Data Points Required</Typography>
+        <Typography variant="h4" sx={{ m: 2, mt: 10, mb: 4 }}>Data Points Required</Typography>
         <Grid container spacing={2} px={15} alignItems="center" justifyContent="center">
           <TextField
             margin="normal"
