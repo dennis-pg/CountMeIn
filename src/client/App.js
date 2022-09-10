@@ -9,6 +9,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import ManageDataPoints from './pages/member/DataPoint';
 import SelectDataPoints from './pages/buyer/SelectDataPoints';
 import Faq from './pages/misc/faq';
+import MemberProfile from './pages/member/Profile';
 
 const theme = createTheme({
   palette: {
@@ -31,6 +32,7 @@ export default () => (
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/manage-data-points" element={<ManageDataPoints />} />
+        <Route path="/member-profile" element={<MemberProfile />} />
         <Route path="/select-data-points" element={<SelectDataPoints />} />
         <Route path="/faq" element={<Faq />} />
         <Route path="/" element={<Sample />} />
