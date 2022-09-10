@@ -16,8 +16,8 @@ const PolicyControls = ({data, category, onChange}) => {
         <Grid item xs={4}>
           <Switch 
             name={"access"}
-            checked={data.access}
-            onChange={(event) => {onChange(data, event.target.name, event.target.value == "on" ? true : false)}}
+            checked={data.access ? data.access : null}
+            onChange={(event) => {console.log("event", event.target.checked); onChange(data, event.target.name, event.target.checked)}}
           />
         </Grid>
         <Grid item xs={4}>

@@ -3,12 +3,12 @@ import {
   Stack, Typography, Grid, TextField, Button, Box
 } from '@mui/material';
 import { ExpandMore, FileCopy } from '@mui/icons-material';
-import { flatten, unflatten } from 'flat';
 
 import Layout from '../../../shared/components/Layout';
 import DataPointAccordion from './components/DataPointAccordion/index';
 import DefaultDataPointValuesModal from './components/DefaultDataModal/index';
 import { ManageDataPointsContextFormProvider } from '../contexts/ManageDataPointsFormContext';
+import { getUserDetails } from '../../../FirestoreMember'
 
 const dataPointsObjArray = [{
     "data_point_name": 'Blood Pressure',
@@ -67,7 +67,6 @@ const dataPointsList = ['SpO2', 'RBC Count', 'SGPT', 'SGOT', 'Serum Creatinine',
 
 const ManageDataPoints = () => {
   const [formState, setFormState] = React.useState({data: dataPointsObjArray});
-  const [flattenedFormState, setFlattenedFormState] = React.useState({});
   const [state, setState] = React.useState({ modalOpen: false, filterText: '', panel: undefined });
   const handleOpen = () => setState({ ...state, modalOpen: true });
   const handleClose = () => setState({ ...state, modalOpen: false });
@@ -75,16 +74,15 @@ const ManageDataPoints = () => {
     ...state, panel: state.panel === text ? undefined : text
   });
 
-  React.useEffect(() => {
-    // console.log("Flattened obj", formState, flatten(formState), unflatten(flatten(formState)), unflatten(flatten(formState)).data[0].data_point_name);
-    setFlattenedFormState(flatten(formState));
-  },[formState])
-
   const handleChange = (key, newValue) => {
     // const error = validateInput(name, newValue);
     console.log("handleChange",key,newValue, formState);
     setFormState({...formState, [key]: newValue});
  }
+
+ React.useEffect(() => {
+  console.log("kfjhwsdefjwef", getUserDetails());
+ }, [])
 
   console.log(state.panel);
   return (
