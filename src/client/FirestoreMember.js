@@ -16,52 +16,53 @@ function getUserMember() {
     setMember(items);
   });
 }
+export async function getUserDetails(requestUserId) {
+  const dataPointsObjArray = [];
+  const querySnapshot = await memberRef.get();
+  for (const doc of querySnapshot.docs) {
+    const c = doc.data();
+    console.log("user_id : ",c.user_id,doc.data());
+    if (c.user_id === requestUserId) {
+      // console.log("data2: ",c);
 
-export function getUserDetails(requestUserId) {
-// setLoading(true);
-  memberRef.onSnapshot((querySnapshot) => {
-    const dataPointsObjArray = [];
-    querySnapshot.forEach((doc) => {
-      dataPointsObjArray.push();
-      const c = doc.data();
-      if (c.user_id == requestUserId) {
-        const dataPointsList = ['Blood Pressure','Cholestrol','SGBT', 'SpO2', 'RBC Count', 'SGPT', 'SGOT', 'Serum Creatinine', 'HDL-Cholestorol', 'LDL-Cholestorol', 'TSH'];
-        for (let i = 0; i < dataPointsList.length; i++) {
-          const key = dataPointsList[i];
-          if(c.basePrice[key]==undefined)
-          {
-            continue
-          }
-          const dataItem = {
-            data_point_name: key,
-            access_control: [
-              {
-                access_name: 'Government',
-                access: c.Access.Government.master_access || c.Access.Government[key],
-                base_price: c.basePrice[key].Government
-              },
-              {
-                access_name: 'Commercial',
-                access: c.Access.Commercial.master_access || c.Access.Commercial[key],
-                base_price: c.basePrice[key]['Commercial']
-              },
-              {
-                access_name: 'Academia',
-                access: c.Access.Academia.master_access || c.Access.Academia[key],
-                base_price: c.basePrice[key]['Academia']
-              }
-            ]
-          };
-          dataPointsObjArray.push(dataItem);
+      const dataPointsList = ['Blood Pressure', 'Cholestrol', 'SGBT', 'SpO2', 'RBC Count', 'SGPT', 'SGOT', 'Serum Creatinine', 'HDL-Cholestorol', 'LDL-Cholestorol', 'TSH'];
+      for (let i = 0; i < dataPointsList.length; i++) {
+        const key = dataPointsList[i];
+        if (c.basePrice[key] == undefined) {
+          continue;
         }
+        // console.log("c.basePrice[key] ",c.basePrice[key]);
+
+        const dataItem = {
+          data_point_name: key,
+          access_control: [
+            {
+              access_name: 'Government',
+              access: c.Access.Government.master_access || c.Access.Government[key],
+              base_price: c.basePrice[key].Government
+            },
+            {
+              access_name: 'Commercial',
+              access: c.Access.Commercial.master_access || c.Access.Commercial[key],
+              base_price: c.basePrice[key].Commercial
+            },
+            {
+              access_name: 'Academia',
+              access: c.Access.Academia.master_access || c.Access.Academia[key],
+              base_price: c.basePrice[key].Academia
+            }
+          ]
+        };
+        dataPointsObjArray.push(dataItem);
+        // console.log("dataPointsObjArray: ",dataPointsObjArray);
+
       }
+      // console.log('dataPointsObjArray 1: ', dataPointsObjArray);
+
       return dataPointsObjArray;
-    });
-
-    // setLoading(false);
-  });
+    }
+  }
 }
-
 
 // ADD FUNCTION
 export function addUserDetails(requestUserId, data) {

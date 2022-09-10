@@ -86,10 +86,14 @@ const ManageDataPoints = () => {
   addUserDetails("jghj21434",formState)
  }
 
- React.useEffect(() => {
-  console.log("kfjhwsdefjwef", getUserDetails("jghj21434"));
- }, [])
 
+ React.useEffect(() => {
+  const fetchData = async () => {
+    console.log("kfjhwsdefjwef", await getUserDetails("jghj21434"));
+  }
+  fetchData()
+    .catch(console.error);
+}, [])
  React.useEffect(() => {
   console.log("updated formState", formState);
  }, [formState]);
