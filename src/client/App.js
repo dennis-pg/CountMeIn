@@ -9,7 +9,6 @@ import SignUp from './pages/login/components/SignUp';
 import { AuthProvider } from "./contexts/AuthContext"
 import { useAuth } from "./contexts/AuthContext"
 
-
 const theme = createTheme({
   palette: {
     primary: {
