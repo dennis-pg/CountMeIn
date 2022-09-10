@@ -3,20 +3,88 @@ import {
   Stack, Typography, Grid, TextField, Button, Box
 } from '@mui/material';
 import { ExpandMore, FileCopy } from '@mui/icons-material';
+import { flatten, unflatten } from 'flat';
 
 import Layout from '../../../shared/components/Layout';
 import DataPointAccordion from './components/DataPointAccordion/index';
 import DefaultDataPointValuesModal from './components/DefaultDataModal/index';
+import { ManageDataPointsContextFormProvider } from '../contexts/ManageDataPointsFormContext';
 
-const dataPointsList = ['Blood Pressure', 'SpO2', 'RBC Count', 'SGPT', 'SGOT', 'Serum Creatinine', 'HDL-Cholestorol', 'LDL-Cholestorol', 'TSH'];
+const dataPointsObjArray = [{
+    "data_point_name": 'Blood Pressure',
+    "access_control": [{
+        "access_name": "Government",
+        "access": true,
+        "base_price": 100
+      },{
+        "access_name": "Commercial",
+        "access": true,
+        "base_price": 200
+      },{
+        "access_name": "Academia",
+        "access": false,
+        "base_price": 50
+      }
+    ],
+  },
+  {
+    "data_point_name": 'SGBT',
+    "access_control": [{
+        "access_name": "Government",
+        "access": true,
+        "base_price": 400
+      },{
+        "access_name": "Commercial",
+        "access": false,
+        "base_price": 200
+      },{
+        "access_name": "Academia",
+        "access": false,
+        "base_price": 50
+      }
+    ],
+  },
+  {
+    "data_point_name": 'Cholestrol',
+    "access_control": [{
+        "access_name": "Government",
+        "access": false,
+        "base_price": 100
+      },{
+        "access_name": "Commercial",
+        "access": true,
+        "base_price": 500
+      },{
+        "access_name": "Academia",
+        "access": false,
+        "base_price": 50
+      }
+    ],
+  },
+]; 
+  
+const dataPointsList = ['SpO2', 'RBC Count', 'SGPT', 'SGOT', 'Serum Creatinine', 'HDL-Cholestorol', 'LDL-Cholestorol', 'TSH'];
 
 const ManageDataPoints = () => {
+  const [formState, setFormState] = React.useState({data: dataPointsObjArray});
+  const [flattenedFormState, setFlattenedFormState] = React.useState({});
   const [state, setState] = React.useState({ modalOpen: false, filterText: '', panel: undefined });
   const handleOpen = () => setState({ ...state, modalOpen: true });
   const handleClose = () => setState({ ...state, modalOpen: false });
   const handleAccordionToggle = text => setState({
     ...state, panel: state.panel === text ? undefined : text
   });
+
+  React.useEffect(() => {
+    // console.log("Flattened obj", formState, flatten(formState), unflatten(flatten(formState)), unflatten(flatten(formState)).data[0].data_point_name);
+    setFlattenedFormState(flatten(formState));
+  },[formState])
+
+  const handleChange = (key, newValue) => {
+    // const error = validateInput(name, newValue);
+    console.log("handleChange",key,newValue, formState);
+    setFormState({...formState, [key]: newValue});
+ }
 
   console.log(state.panel);
   return (
@@ -68,21 +136,25 @@ const ManageDataPoints = () => {
           </Stack>
 
         </Stack>
-        <Grid container sx={{ p: 5 }} spacing={5}>
-          {
-            dataPointsList
-              .filter(text => text.includes(state.filterText))
-              .map(text => (
-                <Grid item xs={12} md={6} lg={4} key={text}>
-                  <DataPointAccordion
-                    dataPointName={text}
-                    panel={state.panel}
-                    handleAccordionToggle={handleAccordionToggle}
-                  />
-                </Grid>
-              ))
-          }
-        </Grid>
+        <ManageDataPointsContextFormProvider value = {{ formState, handleChange }}>
+          <Grid container sx={{ p: 5 }} spacing={5}>
+            {
+              formState.data
+                .filter(entry => entry["data_point_name"].includes(state.filterText))
+                .map(entry => (
+                  <Grid item xs={12} md={6} lg={4} key={entry["data_point_name"]}>
+                    <DataPointAccordion
+                      dataPointName={entry["data_point_name"]}
+                      data={entry}
+                      access_control_key={"access_control"}
+                      panel={state.panel}
+                      handleAccordionToggle={handleAccordionToggle}
+                    />
+                  </Grid>
+                ))
+            }
+          </Grid>
+        </ManageDataPointsContextFormProvider>
       </Stack>
     </Layout>
   );
