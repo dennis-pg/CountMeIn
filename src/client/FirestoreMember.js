@@ -64,6 +64,16 @@ export async function getUserDetails(requestUserId) {
   }
 }
 
+export const getUserProfile = async (requestUserId) => {
+  const userData = await memberRef.doc(requestUserId).get();
+  const data = userData.data();
+  // if (!data) {
+  //   Promise.resolve(data.Profile);
+  // }
+  return data.Profile;
+};
+
+
 // ADD FUNCTION
 export function addUserDetails(requestUserId, data) {
   memberRef.doc(requestUserId).set(transformDataToFireStore(requestUserId,data), { merge: true });
