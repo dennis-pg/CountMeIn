@@ -2,7 +2,8 @@ import * as React from 'react';
 import {
   Stack, Typography, Grid, TextField, Button, Box
 } from '@mui/material';
-import { ExpandMore, FileCopy } from '@mui/icons-material';
+import { DatasetLinked, ExpandMore, FileCopy } from '@mui/icons-material';
+import { useQuery } from '@tanstack/react-query';
 import Layout from '../../../shared/components/Layout';
 import DataPointAccordion from './components/DataPointAccordion/index';
 import DefaultDataPointValuesModal from './components/DefaultDataModal/index';
@@ -68,6 +69,11 @@ const dataPointsList = ['SpO2', 'RBC Count', 'SGPT', 'SGOT', 'Serum Creatinine',
 const ManageDataPoints = () => {
   const [formState, setFormState] = React.useState({data: dataPointsObjArray});
   const [state, setState] = React.useState({ modalOpen: false, filterText: '', panel: undefined });
+  const { isLoading, data } = useQuery(['repoData'], async () => {
+    const userDetails = await getUserDetails();
+    return userDetails;
+  });
+
   const handleOpen = () => setState({ ...state, modalOpen: true });
   const handleClose = () => setState({ ...state, modalOpen: false });
   const handleAccordionToggle = text => setState({
@@ -93,7 +99,7 @@ const ManageDataPoints = () => {
   console.log("updated formState", formState);
  }, [formState]);
 
-  console.log(state.panel);
+  console.log(`Data == ${JSON.stringify(data)}`);
   return (
     <Layout>
       <Stack>
