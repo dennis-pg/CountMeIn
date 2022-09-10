@@ -56,7 +56,7 @@ const Login = () => {
             <FacebookButton />
           </Stack>
 
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1, textAlign: 'center' }}>
             <Divider sx={{ mb: 4 }}><Typography sx={{ color: '#AAAAAA' }}>or continue with email</Typography></Divider>
             <Email />
           </Box>

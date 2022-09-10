@@ -27,9 +27,9 @@ const SelectDataPoints = () => {
 
   return (
     <Layout>
-      <Stack>
+      <Stack alignItems="center">
         <Typography variant="h2" sx={{ m: 2 }}>Select Data Points For Survey</Typography>
-        <Grid container spacing={2} p={15} alignItems="center">
+        <Grid container spacing={2} p={15} alignItems="center" justifyContent="center" sx={{ textAlign: 'center' }}>
           {state.dataPointKeys.map(key => (
             <DataPointRow
               key={key}
