@@ -2,9 +2,12 @@ import * as React from 'react';
 import {
   Grid, Card, Typography, Stack, TextField, Autocomplete, Divider, Button, Box
 } from '@mui/material';
+import { useQuery } from '@tanstack/react-query';
 import { State, City } from 'country-state-city';
 import Layout from '../../../shared/components/Layout';
 import DatePicker from '../../../shared/components/DatePicker/index';
+import { useAuth } from '../../../contexts/AuthContext';
+import { getUserProfile } from '../../../FirestoreMember';
 
 const diseaseList = ['Diabetes', 'COVID-19', 'Measles', 'Mumps', 'Rubella', 'Dengue', 'HIV', 'Tuberculosis'];
 const medicineList = [
@@ -13,14 +16,19 @@ const medicineList = [
 
 
 const MemberProfile = () => {
+  const { currentUser, logout } = useAuth()
+  const { isLoading, isFetching, data } = useQuery(['member-profile'], async() => {
+    const data = await getUserProfile(currentUser.uid) ?? {};
+    return data;
+  });
   const [state, setState] = React.useState({ state: undefined });
   const states = State.getStatesOfCountry('US');
   const cities = state.state
     ? City.getCitiesOfState('US', State.getStatesOfCountry('US').find(stateObj => stateObj.name === state.state).isoCode)
     : [];
 
-
   return (
+    isLoading || isFetching ? <div></div> :
     <Layout>
       <Grid container p={3} spacing={3}>
         <Grid item xs={12} md={6}>
@@ -33,16 +41,18 @@ const MemberProfile = () => {
                 disablePortal
                 id="gender"
                 name="gender"
+                defaultValue={data.gender}
                 options={['Male', 'Female', 'Transgender', 'Prefer not to say']}
                 renderInput={params => <TextField {...params} label="Gender" />}
               />
               <DatePicker
                 label="Date of birth"
+
               />
               <Divider />
               <TextField
                 margin="normal"
-                required
+                defaultValue={data.streetAddress}
                 fullWidth
                 id="streetAddress"
                 label="Street Address"
@@ -50,7 +60,7 @@ const MemberProfile = () => {
               />
               <TextField
                 margin="normal"
-                required
+                defaultValue={data.addressLine2}
                 fullWidth
                 id="addressLine2"
                 label="Address Line 2"
@@ -58,6 +68,7 @@ const MemberProfile = () => {
               />
               <Autocomplete
                 disablePortal
+                defaultValue={data.state}
                 id="state"
                 name="state"
                 options={states.map(stateObj => stateObj.name)}
@@ -66,6 +77,7 @@ const MemberProfile = () => {
               />
               <Autocomplete
                 disablePortal
+                defaultValue={data.city}
                 id="city"
                 name="city"
                 options={cities.map(city => city.name)}
@@ -95,14 +107,7 @@ const MemberProfile = () => {
                 multiple
                 id="diseases"
                 options={diseaseList}
-                defaultValue={
-                  [
-                    diseaseList[3],
-                    diseaseList[5],
-                    diseaseList[6],
-                    diseaseList[7]
-                  ]
-                }
+                defaultValue={data.illnesses}
                 // getOptionLabel={(option) => option.title}
                 renderInput={params => (
                   <TextField
@@ -115,19 +120,7 @@ const MemberProfile = () => {
                 multiple
                 id="medication"
                 options={medicineList}
-                defaultValue={
-                  [
-                    medicineList[9],
-                    medicineList[22],
-                    medicineList[16],
-                    medicineList[17],
-                    medicineList[5],
-                    medicineList[29],
-                    medicineList[31],
-                    medicineList[33],
-                    medicineList[40],
-                  ]
-                }
+                defaultValue={data.medications}
                 // getOptionLabel={(option) => option.title}
                 renderInput={params => (
                   <TextField
