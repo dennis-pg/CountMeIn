@@ -81,7 +81,7 @@ const ManageDataPoints = () => {
  }
 
  React.useEffect(() => {
-  console.log("kfjhwsdefjwef", getUserDetails());
+  console.log("kfjhwsdefjwef", getUserDetails("TcB17gKybpPiIdNHZp9NeCxpFbd2"));
  }, [])
 
   console.log(state.panel);
