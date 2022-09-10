@@ -29,19 +29,24 @@ export function getUserDetails(requestUserId) {
         for (let i = 0; i < dataPointsList.length; i++) {
           const key = dataPointsList[i];
           const dataItem = {
-            'Data Point Name': key,
-            Govt: {
-              access: c.Access.Government.master_access || c.Access.Government[key],
-              basePrice: c.basePrice[key]
-            },
-            Commercial: {
-              access: c.Access.Commercial.master_access || c.Access.Commercial[key],
-              basePrice: c.basePrice[key]
-            },
-            Academia: {
-              access: c.Access.Academia.master_access || c.Access.Academia[key],
-              basePrice: c.basePrice[key]
-            }
+            data_point_name: key,
+            access_control: [
+              {
+                access_name: 'Government',
+                access: c.Access.Government.master_access || c.Access.Government[key],
+                base_price: c.basePrice[key]
+              },
+              {
+                access_name: 'Commercial',
+                access: c.Access.Commercial.master_access || c.Access.Commercial[key],
+                base_price: c.basePrice[key]
+              },
+              {
+                access_name: 'Academia',
+                access: c.Access.Academia.master_access || c.Access.Academia[key],
+                base_price: c.basePrice[key]
+              }
+            ]
           };
           dataPointsObjArray.push(dataItem);
         }
@@ -56,10 +61,9 @@ export function getUserDetails(requestUserId) {
 
 
 // ADD FUNCTION
-function addUserHealthMetric(userId, data) {
-  memberRef.doc(userId).set({ foo: 'bar' }, { merge: true });
+export function addUserDetails(requestUserId, data) {
+  memberRef.doc(userId).set(transformDataToFireStore(requestUserId,data), { merge: true });
 }
-
 
 // EDIT FUNCTION
 function editUserHealthMetric(userId, fieldToUpdate) {
@@ -69,6 +73,40 @@ function editUserHealthMetric(userId, fieldToUpdate) {
     .catch((err) => {
       console.error(err);
     });
+}
+
+
+function transformDataToFireStore(requestUserId,data) {
+  const responseData = {
+    Access: {
+      Academia:
+              {
+                master_access: false
+              },
+      Commercial:
+              {
+                master_access: false
+              },
+      Government:
+              {
+                master_access: false
+              }
+        
+    },
+    basePrice:{},
+    user_id: requestUserId,
+  };
+  for (let i = 0; i < data.length; i++)
+  {
+    var data_point_name=data[i]['data_point_name']
+    var access_control=data[i]['access_control']
+    for (let j = 0; j < access_control.length; j++)
+    {
+      responseData["Access"][access_control[j].access_name][data_point_name]=access_control[j].access
+      responseData["basePrice"][data_point_name] =access_control[j].base_price
+    }
+  }
+  return responseData;
 }
 
 export default getUserDetails;
