@@ -3,9 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import './app.css';
 import { ThemeProvider } from '@emotion/react';
 import Login from './pages/login/index';
-import SignUp from './pages/login/components/SignUp';
-import { AuthProvider } from "./contexts/AuthContext"
-import { useAuth } from "./contexts/AuthContext"
+import { AuthProvider } from './contexts/AuthContext';
 import ManageDataPoints from './pages/member/DataPoint';
 import SelectDataPoints from './pages/buyer/SelectDataPoints';
 import Faq from './pages/misc/faq';
@@ -24,7 +22,7 @@ export default () => (
         <Route path="/select-data-points" element={<SelectDataPoints />} />
         <Route path="/selection-results" element={<SelectionResults />} />
         <Route path="/faq" element={<Faq />} />
-        <Route exact path="/" element={<Sample />} />
+        <Route exact path="/" element={<Landing />} />
       </Routes>
     </AuthProvider>
   </ThemeProvider>
