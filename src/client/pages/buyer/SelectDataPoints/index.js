@@ -1,10 +1,11 @@
 import * as React from 'react';
 import {
-  Stack, Typography, Grid, Button, Box
+  Stack, Typography, Grid, Button, Box, TextField
 } from '@mui/material';
 import * as RandomString from 'randomstring';
 import Layout from '../../../shared/components/Layout';
 import DataPointRow from './DataPointRow';
+import Filters from './Filters';
 
 const SelectDataPoints = () => {
   const [state, setState] = React.useState({ dataPointKeys: [RandomString.generate()] });
@@ -27,9 +28,12 @@ const SelectDataPoints = () => {
 
   return (
     <Layout>
-      <Stack alignItems="center">
+      <Stack alignItems="center" mb={5}>
         <Typography variant="h2" sx={{ m: 2 }}>Select Data Points For Survey</Typography>
-        <Grid container spacing={2} p={15} alignItems="center" justifyContent="center" sx={{ textAlign: 'center' }}>
+        <Typography variant="h4" sx={{ m: 2, mt: 10 }}>Filters</Typography>
+        <Filters />
+        <Typography variant="h4" sx={{ m: 2, mt: 10 }}>Data Points</Typography>
+        <Grid container spacing={2} px={15} alignItems="center" justifyContent="center" sx={{ textAlign: 'center' }}>
           {state.dataPointKeys.map(key => (
             <DataPointRow
               key={key}
@@ -40,7 +44,18 @@ const SelectDataPoints = () => {
             />
           ))}
         </Grid>
-        <Box>
+        <Typography variant="h4" sx={{ m: 2, mt: 10 }}>Data Points Required</Typography>
+        <Grid container spacing={2} px={15} alignItems="center" justifyContent="center">
+          <TextField
+            margin="normal"
+            fullWidth
+            id="dataPointsRequired"
+            label="Data Points Required"
+            name="dataPointsRequired"
+            type="number"
+          />
+        </Grid>
+        <Box sx={{ m: 4, mt: 10 }}>
           <Button
             variant="contained"
           >
