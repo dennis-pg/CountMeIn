@@ -26,8 +26,8 @@ router.post('/add', async(req,res) => {
 });
 
 router.get('/get', async(req, res) => {
-    const data = await memberData.find({});
-    res.send(data);
+    const data = await memberData.findById("631ca6002560db90fdcbec33");
+    res.json(data);
 });
 
 module.exports = router;
