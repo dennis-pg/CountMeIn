@@ -19,6 +19,7 @@ import { useState } from "react"
 import { useTheme } from '@mui/material';
 import logoSrc from '../../../../../public/images/Logo.svg';
 import { useAuth } from '../../../contexts/AuthContext';
+import { PermIdentityOutlined } from '@mui/icons-material';
 
 const settings = ['Profile', 'Dashboard', 'Login'];
 
@@ -185,7 +186,9 @@ const ResponsiveAppBar = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar>
+                  <PermIdentityOutlined />
+                </Avatar>
               </IconButton>
             </Tooltip>
             <Menu
