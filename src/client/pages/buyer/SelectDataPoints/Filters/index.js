@@ -3,9 +3,11 @@ import { State } from 'country-state-city';
 import {
   Grid, TextField, Autocomplete,
 } from '@mui/material';
+import { useBuyerSearchFormContext } from '../../../../contexts/BuyerSearchContext';
 
 const Filters = () => {
   const states = State.getStatesOfCountry('US');
+  const { onChange } = useBuyerSearchFormContext();
 
   return (
     <Grid container spacing={2} px={15}>
@@ -16,6 +18,7 @@ const Filters = () => {
           name="gender"
           options={['Male', 'Female', 'Transgender', 'Prefer not to say']}
           renderInput={params => <TextField {...params} label="Gender" />}
+          onBlur={(event) => onChange(event.target.id, event.target.value)}
         />
       </Grid>
       <Grid item xs={12}>
@@ -26,6 +29,7 @@ const Filters = () => {
           label="Age"
           name="age"
           type="number"
+          onBlur={(event) => onChange(event.target.name, event.target.value)}
         />
       </Grid>
       <Grid item xs={12}>
@@ -35,6 +39,7 @@ const Filters = () => {
           name="state"
           options={states.map(stateObj => stateObj.name)}
           renderInput={params => <TextField {...params} label="State" />}
+          onBlur={(event) => onChange(event.target.id, event.target.value)}
         />
       </Grid>
       <Grid item xs={12}>
@@ -45,6 +50,7 @@ const Filters = () => {
           freeSolo
           options={[]}
           renderInput={params => <TextField {...params} label="Zipcode" />}
+          onBlur={(event) => onChange(event.target.id, event.target.value)}
         />
       </Grid>
     </Grid>

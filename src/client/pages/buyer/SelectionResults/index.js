@@ -5,6 +5,7 @@ import {
 import Layout from '../../../shared/components/Layout';
 import DataPointPrice from './components/DataPointPrice';
 import DataPointSlider from './components/DataPointSlider';
+import { useLocation } from 'react-router-dom';
 
 const results = {
   prices: {
@@ -17,28 +18,50 @@ const results = {
   maximumDataPoints: 157092,
 };
 
-const SelectionResults = () => (
-  <Layout>
-    <Stack alignItems="center" mb={5} sx={{ paddingX: '25vw' }}>
-      <Stack alignItems="center" p={5}>
-        <Typography variant="h2" sx={{ m: 2 }}>Results</Typography>
+const SelectionResults = () => {
+  // const { state } = useBuyerSearchFormContext();
+  const state = useLocation().state;
+  const [ prevSearchState, setPrevSearchState ] = React.useState();
+
+  console.log("State in SelectionResults", JSON.stringify(state));
+
+  React.useEffect(() => {
+    const data = state.dataPointKeys
+        .filter(dataPoint => dataPoint !== {});
+    setPrevSearchState({...prevState, data});
+  }, [state])
+
+  return(
+
+    <Layout>
+      <Stack alignItems="center" mb={5} sx={{ paddingX: '25vw' }}>
+        <Stack alignItems="center" p={5}>
+          <Typography variant="h2" sx={{ m: 2 }}>Results</Typography>
+        </Stack>
+        <Box sx={{ width: '100%', paddingY: 8 }}>
+          <DataPointSlider initialValue={10000} max={results.maximumDataPoints} />
+        </Box>
+        <Stack spacing={2} px={15} alignItems="center" justifyContent="center">
+          {
+              console.log("datapoint", dataPoint, results.prices);
+              Object.keys(results.prices)
+              .filter(key => prevState)
+              .map(key => (
+                // <DataPointPrice
+                //   key={key}
+                //   name={key}
+                //   recommended={results.prices[key].recommended}
+                //   cheapest={results.prices[key].cheapest}
+                // />
+                <h1>BRUHHHHHHHHHHH</h1>
+              ))})
+          }      
+        </Stack>
       </Stack>
-      <Box sx={{ width: '100%', paddingY: 8 }}>
-        <DataPointSlider initialValue={10000} max={results.maximumDataPoints} />
-      </Box>
-      <Stack spacing={2} px={15} alignItems="center" justifyContent="center">
-        {Object.keys(results.prices).map(key => (
-          <DataPointPrice
-            key={key}
-            name={key}
-            recommended={results.prices[key].recommended}
-            cheapest={results.prices[key].cheapest}
-          />
-        ))}
-      </Stack>
-    </Stack>
-  </Layout>
-);
+    </Layout>   
+    
+  );
+}
 
 
 export default SelectionResults;
