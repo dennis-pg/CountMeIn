@@ -10,6 +10,7 @@ import { useRef } from "react"
 import { addUserProfile } from '../../../FirestoreMember.js';
 import { useAuth } from '../../../contexts/AuthContext';
 import { getUserProfile } from '../../../FirestoreMember';
+import Alert from '@mui/material/Alert';
 
 const diseaseList = ['Diabetes', 'COVID-19', 'Measles', 'Mumps', 'Rubella', 'Dengue', 'HIV', 'Tuberculosis'];
 const medicineList = [
@@ -24,7 +25,6 @@ const MemberProfile = () => {
     return data;
   });
   const [state, setState] = React.useState({ state: undefined });
-  const { currentUser, logout } = useAuth()
   const [genderRef,setGenderRef] = React.useState('');
   const [dateOfBirthRef,setDateOfBirthRef] = React.useState(new Date());
   const [streetAddressRef,setStreetAddressRef] = React.useState('');
@@ -51,6 +51,7 @@ const MemberProfile = () => {
       medicineList[40],
     ]
   )
+  const [submitMessage,setSubmitMessage] = React.useState('');
   const states = State.getStatesOfCountry('US');
   const cities = state.state
     ? City.getCitiesOfState('US', State.getStatesOfCountry('US').find(stateObj => stateObj.name === state.state).isoCode)
@@ -72,7 +73,8 @@ const MemberProfile = () => {
       "medicine":medicineRef
       }
     }
-    addUserProfile(currentUser.uid,profile);    
+    addUserProfile(currentUser.uid,profile); 
+    setSubmitMessage('Saved');
     
   }
   return (
@@ -151,6 +153,7 @@ const MemberProfile = () => {
                 renderInput={params => <TextField {...params} label="City" />}
               />
               <Box>
+                {submitMessage && <Alert variant="danger">Successfully saved</Alert>}
                 <Button
                   type="submit"
                   fullWidth
