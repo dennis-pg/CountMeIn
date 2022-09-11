@@ -34,17 +34,17 @@ export async function getUserDetails(requestUserId) {
             {
               access_name: 'Government',
               access: c.Access.Government.master_access || c.Access.Government[key],
-              base_price: c.basePrice[key].Government ?? c.Access.Government.master_value
+              base_price: (c.basePrice[key].Government != 0 ? c.basePrice[key].Government : undefined) ?? parseFloat(c.Access.Government.master_value) ?? 0
             },
             {
               access_name: 'Commercial',
               access: c.Access.Commercial.master_access || c.Access.Commercial[key],
-              base_price: c.basePrice[key].Commercial ?? c.Access.Commercial.master_value
+              base_price: (c.basePrice[key].Commercial != 0 ? c.basePrice[key].Commercial : undefined) ?? parseFloat(c.Access.Commercial.master_value) ?? 0
             },
             {
               access_name: 'Academia',
               access: c.Access.Academia.master_access || c.Access.Academia[key],
-              base_price: c.basePrice[key].Academia ?? c.Access.Academia.master_value
+              base_price: (c.basePrice[key].Academia != 0 ? c.basePrice[key].Academia : undefined) ?? parseFloat(c.Access.Academia.master_value) ?? 0
             }
           ]
         };
