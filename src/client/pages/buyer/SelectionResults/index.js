@@ -9,7 +9,7 @@ import { ArrowForward } from '@mui/icons-material';
 import SuccessfulBuy from './components/SuccessfulBuy';
 
 const results = {
-  cheapest_price: 6300985,
+  minimum_price: 6300985,
   recommended_price: 12597612,
   maximumDataPoints: 157092,
 };
@@ -93,14 +93,14 @@ const SelectionResults = () => {
                       </Stack>
                     </Button>
                     <Button
-                      variant={prevSearchState.buySelection === "Cheapest" ? "contained" : "outlined"}
+                      variant={prevSearchState.buySelection === "Minimum" ? "contained" : "outlined"}
                       onClick={() => {
-                        setPrevSearchState({...prevSearchState, buySelection: "Cheapest"})
+                        setPrevSearchState({...prevSearchState, buySelection: "Minimum"})
                       }}
                     >
                       <Stack>
-                        <Typography sx={{textTransform: "none"}}>Cheapest</Typography>
-                        <Typography>$ { Math.round(results.cheapest_price * prevSearchState.dataPointsRequired / results.maximumDataPoints).toLocaleString("en-US") }</Typography>
+                        <Typography sx={{textTransform: "none"}}>Minimum</Typography>
+                        <Typography>$ { Math.round(results.minimum_price * prevSearchState.dataPointsRequired / results.maximumDataPoints).toLocaleString("en-US") }</Typography>
                       </Stack>
                     </Button>
                   </Stack>
