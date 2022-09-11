@@ -7,8 +7,7 @@ import Layout from '../../../shared/components/Layout';
 import DataPointAccordion from './components/DataPointAccordion/index';
 import DefaultDataPointValuesModal from './components/DefaultDataModal/index';
 import { ManageDataPointsContextFormProvider } from '../../../contexts/ManageDataPointsFormContext';
-import { getDefaultPolicy, getUserDetails, updatePolicy } from '../../../FirestoreMember.js';
-import { addUserDetails } from '../../../FirestoreMember.js';
+import { getUserDetails, updatePolicy } from '../../../FirestoreMember.js';
 import { useAuth } from '../../../contexts/AuthContext';
   
 const ManageDataPoints = () => {
@@ -19,8 +18,8 @@ const ManageDataPoints = () => {
   const handleAccordionToggle = text => setState({
     ...state, panel: state.panel === text ? undefined : text
   });
-  // const { currentUser } = useAuth();
-  const currentUser = {uid: "jghj21434"};
+  
+  const { currentUser } = useAuth();
 
   const handleChange = (dataPointName, buyerCategory, inputType, newValue) => {
     updatePolicy(currentUser.uid, dataPointName, buyerCategory, inputType, newValue)

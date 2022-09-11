@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Navbar from '../Navbar';
 
-const Layout = ({ children }) => (
-  <Box sx={{ mt: 10 }}>
+const Layout = ({ children, noMarginTop }) => (
+  <Box sx={{ mt: !noMarginTop ? 10 : 0 }}>
     <Navbar />
     {children}
   </Box>

@@ -2,7 +2,7 @@ import * as React from 'react';
 import {
   Typography, Grid, Switch, TextField,
 } from '@mui/material';
-import { useManageDataPointsFormContext } from '../../../contexts/ManageDataPointsFormContext';
+import { useManageDataPointsFormContext } from '../../../../../contexts/ManageDataPointsFormContext';
 
 const PolicyControl = ({data, category, dataPointName}) => {
   const { handleChange } = useManageDataPointsFormContext();

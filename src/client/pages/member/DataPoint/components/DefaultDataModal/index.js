@@ -6,6 +6,7 @@ import {
 import { getDefaultPolicy, updatePolicy } from '../../../../../FirestoreMember';
 import DefaultPolicyControl from '../PolicyControl/DefaultPolicyControl';
 import { useQuery } from '@tanstack/react-query';
+import { useAuth } from '../../../../../contexts/AuthContext';
 
 const modalStyle = {
   position: 'absolute',
@@ -19,8 +20,7 @@ const modalStyle = {
 };
 
 const DefaultDataPointValuesModal = ({ open, handleClose }) => {
-  // const { currentUser } = useAuth();
-  const currentUser = {uid: "jghj21434"};
+  const { currentUser } = useAuth();
   const { isLoading, isFetching, data } = useQuery(['member-profile'], async() => {
     const defaultPolicy = await getDefaultPolicy(currentUser?.uid);
     return defaultPolicy;
