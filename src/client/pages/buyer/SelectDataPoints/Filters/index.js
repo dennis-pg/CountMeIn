@@ -21,12 +21,22 @@ const Filters = () => {
           onBlur={(event) => onChange(event.target.id, event.target.value)}
         />
       </Grid>
-      <Grid item xs={12}>
+      <Grid item xs={6}>
         <TextField
           margin="normal"
           fullWidth
           id="age"
-          label="Age"
+          label="Minimum Age"
+          name="age"
+          type="number"
+        />
+      </Grid>
+      <Grid item xs={6}>
+        <TextField
+          margin="normal"
+          fullWidth
+          id="age"
+          label="Maximum Age"
           name="age"
           type="number"
           onBlur={(event) => onChange(event.target.name, event.target.value)}
