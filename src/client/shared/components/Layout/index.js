@@ -4,7 +4,7 @@ import React from 'react';
 import Navbar from '../Navbar';
 
 const Layout = ({ children }) => (
-  <Box>
+  <Box sx={{ mt: 10 }}>
     <Navbar />
     {children}
   </Box>

@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types';
 import * as React from 'react';
 import {
-  Typography, Button, Box, Modal
+  Typography, Box, Modal
 } from '@mui/material';
-import PolicyControls from '../PolicyControls/index';
+import { getDefaultPolicy, updatePolicy } from '../../../../../FirestoreMember';
+import DefaultPolicyControl from '../PolicyControl/DefaultPolicyControl';
+import { useQuery } from '@tanstack/react-query';
 
 const modalStyle = {
   position: 'absolute',
@@ -16,28 +18,48 @@ const modalStyle = {
   p: 4,
 };
 
-const DefaultDataPointValuesModal = ({ open, handleClose }) => (
-  <Modal
-    open={open}
-    onClose={handleClose}
-    aria-labelledby="modal-modal-title"
-    aria-describedby="modal-modal-description"
-  >
-    <Box sx={modalStyle}>
-      <Typography sx={{ mb: 3 }}>
-        Default Values
-      </Typography>
-      <PolicyControls />
-      <Button
-        variant="contained"
-        sx={{ m: 2 }}
-        onClick={() => handleClose()}
-      >
-        Copy to All
-      </Button>
-    </Box>
-  </Modal>
-);
+const DefaultDataPointValuesModal = ({ open, handleClose }) => {
+  // const { currentUser } = useAuth();
+  const currentUser = {uid: "jghj21434"};
+  const { isLoading, isFetching, data } = useQuery(['member-profile'], async() => {
+    const defaultPolicy = await getDefaultPolicy(currentUser?.uid);
+    return defaultPolicy;
+  });
+
+  return (
+    <Modal
+      open={open}
+      onClose={handleClose}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+      <Box sx={modalStyle}>
+        <Typography sx={{ mb: 3, fontWeight: 500, textAlign: 'center' }}>
+          Default Values
+        </Typography>
+        { isLoading || isFetching 
+          ?
+          <></>
+          :
+          <>
+            {
+              ["Academia", "Commercial", "Government"]
+                .map(category => {
+                  return (
+                    <DefaultPolicyControl 
+                      data={data?.['Access']?.[category] ?? undefined}
+                      dataPointName={"master_value"}
+                      category={category}
+                    />
+                  );
+                })
+            }
+          </>
+        }
+      </Box>
+    </Modal>
+  );
+};
 
 DefaultDataPointValuesModal.propTypes = {
   open: PropTypes.bool.isRequired,
