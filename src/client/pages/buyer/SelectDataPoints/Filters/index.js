@@ -3,7 +3,6 @@ import { State } from 'country-state-city';
 import {
   Grid, TextField, Autocomplete,
 } from '@mui/material';
-
 const Filters = () => {
   const states = State.getStatesOfCountry('US');
 
@@ -18,12 +17,22 @@ const Filters = () => {
           renderInput={params => <TextField {...params} label="Gender" />}
         />
       </Grid>
-      <Grid item xs={12}>
+      <Grid item xs={6}>
         <TextField
           margin="normal"
           fullWidth
           id="age"
-          label="Age"
+          label="Minimum Age"
+          name="age"
+          type="number"
+        />
+      </Grid>
+      <Grid item xs={6}>
+        <TextField
+          margin="normal"
+          fullWidth
+          id="age"
+          label="Maximum Age"
           name="age"
           type="number"
         />
