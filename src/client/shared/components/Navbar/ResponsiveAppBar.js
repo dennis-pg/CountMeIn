@@ -31,7 +31,7 @@ const ResponsiveAppBar = () => {
   const { currentUser ,logout } = useAuth();
 
   const pages = currentUser != null ? (currentUser.displayName == "Member" ? ['Member Dashboard','FAQ', 'Logout'] :['Buyer Dashboard','FAQ', 'Logout'] ) : ['FAQ', 'Login'];
-  const settings = currentUser != null ? (currentUser.displayName == "Member" ? ['Profile', 'Member Dashboard']  :['Profile', 'Buyer Dashboard']  ) : ['FAQ', 'Login'];
+  const settings = currentUser != null ? (currentUser.displayName == "Member" ? ['Profile', 'Member Dashboard']  :[ 'Buyer Dashboard']  ) : ['FAQ', 'Login'];
 
 
   async function handleLogout() {

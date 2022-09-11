@@ -15,7 +15,7 @@ export var user_template={
         'LDL-Cholestorol':false,
         'TSH':false,
         "master_access":false,
-        "master_value":10
+        "master_value":0
         },
       "Commercial":
       {
@@ -31,7 +31,7 @@ export var user_template={
         'LDL-Cholestorol':false,
         'TSH':false,
         "master_access":false,
-        "master_value":10
+        "master_value":0
         },
       "Government":
       {
@@ -47,69 +47,69 @@ export var user_template={
         'LDL-Cholestorol':false,
         'TSH':false,
         "master_access":false,
-        "master_value":10
+        "master_value":0
         }            
     },
     "basePrice":{
         'Blood Pressure':{
-            "Academia":100,
-            "Commercial":100,
-            "Government":100
+            "Academia":0,
+            "Commercial":0,
+            "Government":0
         }, 
         'Cholestrol':{
-            "Academia":100,
-            "Commercial":100,
-            "Government":100
+            "Academia":0,
+            "Commercial":0,
+            "Government":0
         }, 
         'SGBT':{
-            "Academia":100,
-            "Commercial":100,
-            "Government":100
+            "Academia":0,
+            "Commercial":0,
+            "Government":0
         }, 
         'SpO2':{
-            "Academia":100,
-            "Commercial":100,
-            "Government":100
+            "Academia":0,
+            "Commercial":0,
+            "Government":0
         },
         'RBC Count':{
-            "Academia":100,
-            "Commercial":100,
-            "Government":100
+            "Academia":0,
+            "Commercial":0,
+            "Government":0
         }, 
         'SGPT':{
-            "Academia":100,
-            "Commercial":100,
-            "Government":100
+            "Academia":0,
+            "Commercial":0,
+            "Government":0
         },
         'SGOT':{
-            "Academia":100,
-            "Commercial":100,
-            "Government":100
+            "Academia":0,
+            "Commercial":0,
+            "Government":0
         },
         'Serum Creatinine':{
-            "Academia":100,
-            "Commercial":100,
-            "Government":100
+            "Academia":0,
+            "Commercial":0,
+            "Government":0
         },
         'HDL-Cholestorol':{
-            "Academia":100,
-            "Commercial":100,
-            "Government":100
+            "Academia":0,
+            "Commercial":0,
+            "Government":0
         },
         'LDL-Cholestorol':{
-            "Academia":100,
-            "Commercial":100,
-            "Government":100
+            "Academia":0,
+            "Commercial":0,
+            "Government":0
         },
         'TSH':{
-            "Academia":100,
-            "Commercial":100,
-            "Government":100
+            "Academia":0,
+            "Commercial":0,
+            "Government":0
         },
         "master_access":{
-            "Academia":100,
-            "Commercial":100,
-            "Government":100
+            "Academia":0,
+            "Commercial":0,
+            "Government":0
         }
     }
   };
