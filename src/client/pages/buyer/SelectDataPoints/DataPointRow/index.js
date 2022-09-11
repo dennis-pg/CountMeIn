@@ -9,41 +9,46 @@ const dataPointsList = ['Blood Pressure', 'SpO2', 'RBC Count', 'SGPT', 'SGOT', '
 
 const DataPointRow = ({
   dataPointKey, onAdd, onRemove, hideRemove
-}) => (
-  <>
-    <Grid item xs={10}>
-      <Autocomplete
-        disablePortal
-        id="dataPoint1"
-        name="dataPoint1"
-        options={dataPointsList}
-        renderInput={params => <TextField {...params} label="Data Point" />}
-      />
-    </Grid>
-    <Grid item xs={1}>
-      <IconButton
-        aria-label="Add Data point"
-        color="primary"
-        onClick={() => onAdd(dataPointKey)}
-      >
-        <AddCircleRounded />
-      </IconButton>
-    </Grid>
-    <Grid item xs={1}>
-      { !hideRemove
-        && (
-          <IconButton
-            aria-label="Delete Data Point"
-            color="primary"
-            onClick={() => onRemove(dataPointKey)}
-          >
-            <RemoveCircleRounded />
-          </IconButton>
-        )
-      }
-    </Grid>
-  </>
-);
+}) => {
+  const [state, setState] = React.useState();
+
+  return(
+    <>
+      <Grid item xs={10}>
+        <Autocomplete
+          disablePortal
+          id="dataPoint1"
+          name="dataPoint1"
+          options={dataPointsList}
+          renderInput={params => <TextField {...params} label="Data Point" />}
+          onChange={(event, value) => {console.log("autocomplete state", value); setState(value)}}
+        />
+      </Grid>
+      <Grid item xs={1}>
+        <IconButton
+          aria-label="Add Data point"
+          color="primary"
+          onClick={(event) => {console.log("onAdd", state); onAdd(dataPointKey, state)}}
+        >
+          <AddCircleRounded />
+        </IconButton>
+      </Grid>
+      <Grid item xs={1}>
+        { !hideRemove
+          && (
+            <IconButton
+              aria-label="Delete Data Point"
+              color="primary"
+              onClick={() => onRemove(dataPointKey)}
+            >
+              <RemoveCircleRounded />
+            </IconButton>
+          )
+        }
+      </Grid>
+    </>
+  );
+}
 
 DataPointRow.propTypes = {
   dataPointKey: PropTypes.string.isRequired,
