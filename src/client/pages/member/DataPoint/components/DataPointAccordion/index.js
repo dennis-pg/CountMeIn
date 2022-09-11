@@ -5,7 +5,7 @@ import {
 import { ExpandMore } from '@mui/icons-material';
 import PropTypes from 'prop-types';
 import PolicyControls from '../PolicyControls/index';
-import { useManageDataPointsFormContext } from '../../../contexts/ManageDataPointsFormContext';
+import { useManageDataPointsFormContext } from '../../../../../contexts/ManageDataPointsFormContext';
 
 
 const DataPointAccordion = ({ dataPointName, data, panel, handleAccordionToggle }) => {

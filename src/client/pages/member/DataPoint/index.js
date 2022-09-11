@@ -6,7 +6,7 @@ import { ExpandMore, FileCopy } from '@mui/icons-material';
 import Layout from '../../../shared/components/Layout';
 import DataPointAccordion from './components/DataPointAccordion/index';
 import DefaultDataPointValuesModal from './components/DefaultDataModal/index';
-import { ManageDataPointsContextFormProvider } from '../contexts/ManageDataPointsFormContext';
+import { ManageDataPointsContextFormProvider } from '../../../contexts/ManageDataPointsFormContext';
 import { getUserDetails } from '../../../FirestoreMember.js';
 import { addUserDetails } from '../../../FirestoreMember.js';
 import { useAuth } from '../../../contexts/AuthContext';
