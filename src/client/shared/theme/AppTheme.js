@@ -10,6 +10,11 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: 'Thiccboi',
+    h1: {
+      fontWeight: 700,
+      fontSize: '6em',
+      color: '#222'
+    },
     h2: {
       fontWeight: 600,
       fontSize: '2.5em',

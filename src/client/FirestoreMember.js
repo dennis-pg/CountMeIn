@@ -21,9 +21,7 @@ export async function getUserDetails(requestUserId) {
   const querySnapshot = await memberRef.get();
   for (const doc of querySnapshot.docs) {
     const c = doc.data();
-    console.log("user_id : ",c.user_id,doc.data());
     if (c.user_id === requestUserId) {
-      // console.log("data2: ",c);
 
       const dataPointsList = ['Blood Pressure', 'Cholestrol', 'SGBT', 'SpO2', 'RBC Count', 'SGPT', 'SGOT', 'Serum Creatinine', 'HDL-Cholestorol', 'LDL-Cholestorol', 'TSH'];
       for (let i = 0; i < dataPointsList.length; i++) {
@@ -31,7 +29,6 @@ export async function getUserDetails(requestUserId) {
         if (c.basePrice[key] == undefined) {
           continue;
         }
-        // console.log("c.basePrice[key] ",c.basePrice[key]);
 
         const dataItem = {
           data_point_name: key,
@@ -39,25 +36,23 @@ export async function getUserDetails(requestUserId) {
             {
               access_name: 'Government',
               access: c.Access.Government.master_access || c.Access.Government[key],
-              base_price: c.basePrice[key].Government
+              base_price: c.basePrice[key].Government ?? c.Access.Government.master_value
             },
             {
               access_name: 'Commercial',
               access: c.Access.Commercial.master_access || c.Access.Commercial[key],
-              base_price: c.basePrice[key].Commercial
+              base_price: c.basePrice[key].Commercial ?? c.Access.Commercial.master_value
             },
             {
               access_name: 'Academia',
               access: c.Access.Academia.master_access || c.Access.Academia[key],
-              base_price: c.basePrice[key].Academia
+              base_price: c.basePrice[key].Academia ?? c.Access.Academia.master_value
             }
           ]
         };
         dataPointsObjArray.push(dataItem);
-        // console.log("dataPointsObjArray: ",dataPointsObjArray);
 
       }
-      // console.log('dataPointsObjArray 1: ', dataPointsObjArray);
 
       return dataPointsObjArray;
     }
@@ -74,10 +69,28 @@ export function setupUserProfile(requestUserId ) {
 export const getUserProfile = async (requestUserId) => {
   const userData = await memberRef.doc(requestUserId).get();
   const data = userData.data();
-  // if (!data) {
-  //   Promise.resolve(data.Profile);
-  // }
   return data.Profile;
+};
+
+export const getDefaultPolicy = async (requestUserId) => {
+  const userData = await memberRef.doc(requestUserId).get();
+  const data = userData.data();
+  console.log(data)
+  return data ?? { Access: { Academia: {}, Commercial: {}, Government: {} } };
+};
+
+export const updatePolicy = async (requestUserId, dataPointName, buyerCategory, inputType, newValue) => {
+  const data = {};
+  if (inputType === "Access") {
+    data["Access"] = {};
+    data["Access"][buyerCategory] = {};
+    data["Access"][buyerCategory][dataPointName] = newValue;
+  } else {
+    data["basePrice"] = {};
+    data["basePrice"][dataPointName] = {};
+    data["basePrice"][dataPointName][buyerCategory] = newValue;
+  }
+  await memberRef.doc(requestUserId).set(data, { merge: true });
 };
 
 
