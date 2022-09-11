@@ -67,7 +67,6 @@ const ManageDataPoints = () => {
               </Button>
 
               
-              <DefaultDataPointValuesModal open={state.modalOpen} handleClose={handleClose} />
             </Box>
           </Stack>
           <Stack spacing={2} direction="row" alignItems="start">
@@ -105,6 +104,7 @@ const ManageDataPoints = () => {
                 ))
             }
           </Grid>
+          <DefaultDataPointValuesModal open={state.modalOpen} handleClose={handleClose} />
         </ManageDataPointsContextFormProvider>
       </Stack>
     </Layout>
