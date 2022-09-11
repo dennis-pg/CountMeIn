@@ -9,8 +9,7 @@ import { ArrowForward } from '@mui/icons-material';
 import SuccessfulBuy from './components/SuccessfulBuy';
 
 const results = {
-  minimum_price: 6300985,
-  recommended_price: 12597612,
+  price: 630212,
   maximumDataPoints: 157092,
 };
 
@@ -89,7 +88,7 @@ const SelectionResults = () => {
                     >
                       <Stack>
                         <Typography sx={{textTransform: "none"}}>Recommended</Typography>
-                        <Typography>$ { Math.round(results.recommended_price * prevSearchState.dataPointsRequired / results.maximumDataPoints).toLocaleString("en-US") }</Typography>
+                        <Typography>$ { Math.round(results.price * prevSearchState.dataPointsRequired / results.maximumDataPoints).toLocaleString("en-US") }</Typography>
                       </Stack>
                     </Button>
                     <Button
@@ -100,7 +99,7 @@ const SelectionResults = () => {
                     >
                       <Stack>
                         <Typography sx={{textTransform: "none"}}>Minimum</Typography>
-                        <Typography>$ { Math.round(results.minimum_price * prevSearchState.dataPointsRequired / results.maximumDataPoints).toLocaleString("en-US") }</Typography>
+                        <Typography>$ { Math.round(results.price * Math.pow((prevSearchState.dataPointsRequired / results.maximumDataPoints), 1.1)).toLocaleString("en-US") }</Typography>
                       </Stack>
                     </Button>
                   </Stack>
