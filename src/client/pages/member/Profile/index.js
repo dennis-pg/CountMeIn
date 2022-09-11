@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  Grid, Card, Typography, Stack, TextField, Autocomplete, Divider, Button, Box
+  Grid, Card, Typography, Stack, TextField, Autocomplete, Divider, Button, Box, Tooltip, IconButton
 } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import { State, City } from 'country-state-city';
@@ -11,6 +11,7 @@ import { addUserProfile } from '../../../FirestoreMember.js';
 import { useAuth } from '../../../contexts/AuthContext';
 import { getUserProfile } from '../../../FirestoreMember';
 import Alert from '@mui/material/Alert';
+import { InfoOutlined } from '@mui/icons-material';
 
 const diseaseList = ['Diabetes', 'COVID-19', 'Measles', 'Mumps', 'Rubella', 'Dengue', 'HIV', 'Tuberculosis'];
 const medicineList = [
@@ -173,60 +174,82 @@ const MemberProfile = () => {
           >
             <Stack spacing={3} p={6}>
               <Typography variant="h4">Medical Information</Typography>
-              <Autocomplete
-                multiple
-                id="diseases"
-                options={diseaseList}
-                defaultValue={
-                  [
-                    diseaseList[3],
-                    diseaseList[5],
-                    diseaseList[6],
-                    diseaseList[7]
-                  ]
-                }
-                onChange={(event, newValue) => 
-                setIllnessRef(newValue)
-                }
-                defaultValue={data.illnesses}
-                // getOptionLabel={(option) => option.title}
-                renderInput={params => (
-                  <TextField
-                    {...params}
-                    label="Illness History"
-                    inputRef={illnessRef}
-                  />
-                )}
-              />
-              <Autocomplete
-                multiple
-                id="medication"
-                options={medicineList}
-                defaultValue={
-                  [
-                    medicineList[9],
-                    medicineList[22],
-                    medicineList[16],
-                    medicineList[17],
-                    medicineList[5],
-                    medicineList[29],
-                    medicineList[31],
-                    medicineList[33],
-                    medicineList[40],
-                  ]
-                }
-                onChange={(event, newValue) => 
-                  setMedicineRef(newValue)
+              <Stack direction="row" alignItems="center" spacing={2}>
+                <Autocomplete
+                  multiple
+                  readOnly={true}
+                  id="diseases"
+                  options={diseaseList}
+                  defaultValue={
+                    [
+                      diseaseList[3],
+                      diseaseList[5],
+                      diseaseList[6],
+                      diseaseList[7]
+                    ]
                   }
-                defaultValue={data.medications}
-                // getOptionLabel={(option) => option.title}
-                renderInput={params => (
-                  <TextField
-                    {...params}
-                    label="Medication"
-                  />
-                )}
-              />
+                  onChange={(event, newValue) => 
+                  setIllnessRef(newValue)
+                  }
+                  // defaultValue={data.illnesses}
+                  // getOptionLabel={(option) => option.title}
+                  renderInput={params => (
+                    <TextField
+                      {...params}
+                      label="Illness History"
+                      inputRef={illnessRef}
+                    />
+                  )}
+                />
+
+                <Tooltip title="This data is pulled from your Electronic Health Records">
+                  <Box>
+                    <IconButton>
+                      <InfoOutlined />
+                    </IconButton>
+                  </Box>
+                </Tooltip>
+                
+              </Stack>
+              <Stack direction="row" alignItems="center" spacing={2}>
+                <Autocomplete
+                  multiple
+                  readOnly={true}
+                  id="medication"
+                  options={medicineList}
+                  defaultValue={
+                    [
+                      medicineList[9],
+                      medicineList[22],
+                      medicineList[16],
+                      medicineList[17],
+                      medicineList[5],
+                      medicineList[29],
+                      medicineList[31],
+                      medicineList[33],
+                      medicineList[40],
+                    ]
+                  }
+                  onChange={(event, newValue) => 
+                    setMedicineRef(newValue)
+                    }
+                  // defaultValue={data.medications}
+                  // getOptionLabel={(option) => option.title}
+                  renderInput={params => (
+                    <TextField
+                      {...params}
+                      label="Medication"
+                    />
+                  )}
+                />
+                <Box>
+                  <Tooltip title="This data is pulled from your Electronic Health Records">
+                    <IconButton>
+                      <InfoOutlined />
+                    </IconButton>
+                  </Tooltip>
+                </Box>
+              </Stack>
             </Stack>
           </Card>
         </Grid>
