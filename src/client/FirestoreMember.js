@@ -79,6 +79,11 @@ export function addUserDetails(requestUserId, data) {
   memberRef.doc(requestUserId).set(transformDataToFireStore(requestUserId,data), { merge: true });
 }
 
+// ADD FUNCTION
+export function addUserProfile(requestUserId, data) {
+  memberRef.doc(requestUserId).set(data, { merge: true });
+}
+
 // EDIT FUNCTION
 function editUserHealthMetric(userId, fieldToUpdate) {
   memberMetricsRef
