@@ -70,11 +70,7 @@ const SignIn = () => {
       >
         Sign In
       </Button>
-      <Box sx={{ m: '2em 0em', alignSelf: 'start' }}>
-        <Link href="/forgot-password" variant="body2">
-          Forgot password?
-        </Link>
-      </Box>
+
     </>
   );
 };
