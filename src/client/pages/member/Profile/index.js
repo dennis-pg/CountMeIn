@@ -5,6 +5,9 @@ import {
 import { State, City } from 'country-state-city';
 import Layout from '../../../shared/components/Layout';
 import DatePicker from '../../../shared/components/DatePicker/index';
+import { useRef } from "react"
+import { addUserProfile } from '../../../FirestoreMember.js';
+import { useAuth } from "../../../contexts/AuthContext"
 
 const diseaseList = ['Diabetes', 'COVID-19', 'Measles', 'Mumps', 'Rubella', 'Dengue', 'HIV', 'Tuberculosis'];
 const medicineList = [
@@ -14,11 +17,62 @@ const medicineList = [
 
 const MemberProfile = () => {
   const [state, setState] = React.useState({ state: undefined });
+  const { currentUser, logout } = useAuth()
+  const [genderRef,setGenderRef] = React.useState('');
+  const [dateOfBirthRef,setDateOfBirthRef] = React.useState(new Date());
+  const [streetAddressRef,setStreetAddressRef] = React.useState('');
+  const [illnessRef,setIllnessRef] = React.useState(
+    [
+      diseaseList[3],
+      diseaseList[5],
+      diseaseList[6],
+      diseaseList[7]
+    ]
+  )
+  const [addressLine2Ref,setAddressLine2Ref] = React.useState('');
+  const [cityRef,setCityRef] = React.useState('');
+  const [medicineRef,setMedicineRef]= React.useState(
+    [
+      medicineList[9],
+      medicineList[22],
+      medicineList[16],
+      medicineList[17],
+      medicineList[5],
+      medicineList[29],
+      medicineList[31],
+      medicineList[33],
+      medicineList[40],
+    ]
+  )
   const states = State.getStatesOfCountry('US');
   const cities = state.state
     ? City.getCitiesOfState('US', State.getStatesOfCountry('US').find(stateObj => stateObj.name === state.state).isoCode)
     : [];
 
+  function handleSubmit()
+  {
+    console.log("handleSubmit Data:",genderRef,dateOfBirthRef,streetAddressRef,addressLine2Ref,cityRef,states);
+    console.log("genderRef: ",genderRef);
+    console.log("dateOfBirthRef: ",dateOfBirthRef);
+    console.log("illnessRef:",illnessRef);
+    var profile={
+      "profile":
+      {
+      "gender":genderRef,
+      "date_of_birth":dateOfBirthRef,
+      "address":streetAddressRef.target.value,
+      "address_second_line":addressLine2Ref.target.value,
+      "state":state['state'],
+      "city":cityRef,
+      "illness":illnessRef,
+      "medicine":medicineRef
+      }
+    }
+    console.log(profile)
+    console.log(currentUser.uid)
+    addUserProfile(currentUser.uid,profile);    
+    
+  }
 
   return (
     <Layout>
@@ -33,10 +87,17 @@ const MemberProfile = () => {
                 disablePortal
                 id="gender"
                 name="gender"
+                onChange={(event, newValue) => {
+                  setGenderRef(newValue
+                  );}}
                 options={['Male', 'Female', 'Transgender', 'Prefer not to say']}
                 renderInput={params => <TextField {...params} label="Gender" />}
               />
               <DatePicker
+                inputRef={dateOfBirthRef}
+                onChange={(event, newValue) => {
+                  setDateOfBirthRef(newValue
+                  );}}
                 label="Date of birth"
               />
               <Divider />
@@ -47,6 +108,10 @@ const MemberProfile = () => {
                 id="streetAddress"
                 label="Street Address"
                 name="streetAddress"
+                onChange={(event, newValue) => {
+                  setStreetAddressRef(event
+                  );}}
+                inputRef={streetAddressRef}
               />
               <TextField
                 margin="normal"
@@ -55,20 +120,28 @@ const MemberProfile = () => {
                 id="addressLine2"
                 label="Address Line 2"
                 name="addressLine2"
+                onChange={(event, newValue) => {
+                  setAddressLine2Ref(event
+                  );}}
+                inputRef={addressLine2Ref}
               />
               <Autocomplete
                 disablePortal
                 id="state"
                 name="state"
                 options={states.map(stateObj => stateObj.name)}
-                onChange={(event, newValue) => { setState({ state: newValue }); }}
+                onChange={(event, newValue) => { setState({ state: newValue });}}
                 renderInput={params => <TextField {...params} label="State" />}
               />
               <Autocomplete
                 disablePortal
                 id="city"
                 name="city"
+                inputRef={cityRef}
                 options={cities.map(city => city.name)}
+                onChange={(event, newValue) => {
+                  setCityRef(newValue
+                  );}}
                 renderInput={params => <TextField {...params} label="City" />}
               />
               <Box>
@@ -76,7 +149,7 @@ const MemberProfile = () => {
                   type="submit"
                   fullWidth
                   variant="contained"
-                  // onClick={handleSubmit}
+                  onClick={handleSubmit}
                   sx={{ mt: 3, mb: 2 }}
                 >
                   Save
@@ -103,11 +176,15 @@ const MemberProfile = () => {
                     diseaseList[7]
                   ]
                 }
+                onChange={(event, newValue) => 
+                setIllnessRef(newValue)
+                }
                 // getOptionLabel={(option) => option.title}
                 renderInput={params => (
                   <TextField
                     {...params}
                     label="Illness History"
+                    inputRef={illnessRef}
                   />
                 )}
               />
@@ -128,6 +205,9 @@ const MemberProfile = () => {
                     medicineList[40],
                   ]
                 }
+                onChange={(event, newValue) => 
+                  setMedicineRef(newValue)
+                  }
                 // getOptionLabel={(option) => option.title}
                 renderInput={params => (
                   <TextField
