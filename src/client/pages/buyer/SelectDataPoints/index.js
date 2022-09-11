@@ -11,15 +11,21 @@ import { useNavigate } from 'react-router-dom';
 import MailUs from '../../../shared/components/Mail/MailUs';
 
 const SelectDataPoints = () => {
-  const [state, setState] = React.useState({ dataPointKeys: [{}] });
+  const [state, setState] = React.useState({ dataPointKeys: [{key: RandomString.generate(), value: null}] });
   const history = useNavigate();
 
-  const onAdd = (key, newValue) => {
+  const onSelect = (key, newValue) => {
     const dataPointKeys = [...state.dataPointKeys];
-    dataPointKeys.push({key: RandomString.generate(), value: newValue});
+    const keyIndex = dataPointKeys.findIndex(datapoint => datapoint.key === key);
+    dataPointKeys[keyIndex] = {key: key, value: newValue};
     setState({...state, dataPointKeys});
-    console.log("state", state);
+    console.log("state", state, dataPointKeys, key);
   };
+  const onAdd = () => {
+    const dataPointKeys = [...state.dataPointKeys];
+    dataPointKeys.push({key: RandomString.generate(), value: null});
+    setState({...state, dataPointKeys});
+  } 
   const onRemove = (key) => {
     const dataPointKeys = [...state.dataPointKeys];
     const keyIndex = dataPointKeys.findIndex(datapoint => datapoint.key === key);
@@ -47,8 +53,9 @@ const SelectDataPoints = () => {
               <DataPointRow
                 key={entry.key}
                 dataPointKey={entry.key}
-                onAdd={onAdd}
+                onSelect={onSelect}
                 onRemove={onRemove}
+                onAdd={onAdd}
                 hideRemove={state.dataPointKeys.length === 1}
               />
             ))}

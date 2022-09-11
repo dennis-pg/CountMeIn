@@ -8,10 +8,8 @@ import { AddCircleRounded, RemoveCircleRounded } from '@mui/icons-material';
 const dataPointsList = ['Blood Pressure', 'SpO2', 'RBC Count', 'SGPT', 'SGOT', 'Serum Creatinine', 'HDL-Cholestorol', 'LDL-Cholestorol', 'TSH'];
 
 const DataPointRow = ({
-  dataPointKey, onAdd, onRemove, hideRemove
+  dataPointKey, onSelect, onAdd, onRemove, hideRemove
 }) => {
-  const [state, setState] = React.useState();
-
   return(
     <>
       <Grid item xs={10}>
@@ -21,14 +19,14 @@ const DataPointRow = ({
           name="dataPoint1"
           options={dataPointsList}
           renderInput={params => <TextField {...params} label="Data Point" />}
-          onChange={(event, value) => {console.log("autocomplete state", value); setState(value)}}
+          onChange={(event, value) => {console.log("autocomplete state", value); onSelect(dataPointKey, value)}}
         />
       </Grid>
       <Grid item xs={1}>
         <IconButton
           aria-label="Add Data point"
           color="primary"
-          onClick={(event) => {console.log("onAdd", state); onAdd(dataPointKey, state)}}
+          onClick={(event) => {onAdd();}}
         >
           <AddCircleRounded />
         </IconButton>
