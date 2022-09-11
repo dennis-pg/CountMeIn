@@ -5,7 +5,7 @@ import {
 } from '@mui/material';
 import { AddCircleRounded, RemoveCircleRounded } from '@mui/icons-material';
 
-const dataPointsList = ['Blood Pressure', 'SpO2', 'RBC Count', 'SGPT', 'SGOT', 'Serum Creatinine', 'HDL-Cholestorol', 'LDL-Cholestorol', 'TSH'];
+const dataPointsList = ['Blood Pressure', 'SpO2', 'RBC Count', 'SGPT', 'SGOT', 'Serum Creatinine', 'HDL-Cholesterol', 'LDL-Cholesterol', 'TSH'];
 
 const DataPointRow = ({
   dataPointKey, onSelect, onAdd, onRemove, hideRemove

@@ -22,7 +22,7 @@ export async function getUserDetails(requestUserId) {
   for (const doc of querySnapshot.docs) {
     const c = doc.data();
     if (c.user_id === requestUserId) {
-      const dataPointsList = ['Blood Pressure', 'Cholestrol', 'SGBT', 'SpO2', 'RBC Count', 'SGPT', 'SGOT', 'Serum Creatinine', 'HDL-Cholestorol', 'LDL-Cholestorol', 'TSH'];
+      const dataPointsList = ['Blood Pressure', 'Cholesterol', 'SGBT', 'SpO2', 'RBC Count', 'SGPT', 'SGOT', 'Serum Creatinine', 'HDL-Cholesterol', 'LDL-Cholesterol', 'TSH'];
       for (let i = 0; i < dataPointsList.length; i++) {
         const key = dataPointsList[i];
         if (c.basePrice[key] == undefined) {

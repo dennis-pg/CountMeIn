@@ -4,15 +4,15 @@ export var user_template={
       "Academia":
         {
         'Blood Pressure':false, 
-        'Cholestrol':false, 
+        'Cholesterol':false, 
         'SGBT':false, 
         'SpO2':false,
         'RBC Count':false, 
         'SGPT':false,
         'SGOT':false,
         'Serum Creatinine':false,
-        'HDL-Cholestorol':false,
-        'LDL-Cholestorol':false,
+        'HDL-Cholesterol':false,
+        'LDL-Cholesterol':false,
         'TSH':false,
         "master_access":false,
         "master_value":0
@@ -20,15 +20,15 @@ export var user_template={
       "Commercial":
       {
         'Blood Pressure':false, 
-        'Cholestrol':false, 
+        'Cholesterol':false, 
         'SGBT':false, 
         'SpO2':false,
         'RBC Count':false, 
         'SGPT':false,
         'SGOT':false,
         'Serum Creatinine':false,
-        'HDL-Cholestorol':false,
-        'LDL-Cholestorol':false,
+        'HDL-Cholesterol':false,
+        'LDL-Cholesterol':false,
         'TSH':false,
         "master_access":false,
         "master_value":0
@@ -36,15 +36,15 @@ export var user_template={
       "Government":
       {
         'Blood Pressure':false, 
-        'Cholestrol':false, 
+        'Cholesterol':false, 
         'SGBT':false, 
         'SpO2':false,
         'RBC Count':false, 
         'SGPT':false,
         'SGOT':false,
         'Serum Creatinine':false,
-        'HDL-Cholestorol':false,
-        'LDL-Cholestorol':false,
+        'HDL-Cholesterol':false,
+        'LDL-Cholesterol':false,
         'TSH':false,
         "master_access":false,
         "master_value":0
@@ -56,7 +56,7 @@ export var user_template={
             "Commercial":0,
             "Government":0
         }, 
-        'Cholestrol':{
+        'Cholesterol':{
             "Academia":0,
             "Commercial":0,
             "Government":0
@@ -91,12 +91,12 @@ export var user_template={
             "Commercial":0,
             "Government":0
         },
-        'HDL-Cholestorol':{
+        'HDL-Cholesterol':{
             "Academia":0,
             "Commercial":0,
             "Government":0
         },
-        'LDL-Cholestorol':{
+        'LDL-Cholesterol':{
             "Academia":0,
             "Commercial":0,
             "Government":0
