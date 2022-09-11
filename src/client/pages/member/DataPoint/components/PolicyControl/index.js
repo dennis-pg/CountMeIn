@@ -2,8 +2,10 @@ import * as React from 'react';
 import {
   Typography, Grid, Switch, TextField,
 } from '@mui/material';
+import { useManageDataPointsFormContext } from '../../../../../contexts/ManageDataPointsFormContext';
 
-const PolicyControls = ({data, category, onChange}) => {
+const PolicyControl = ({data, category, dataPointName}) => {
+  const { handleChange } = useManageDataPointsFormContext();
 
   return(
     <>
@@ -16,18 +18,22 @@ const PolicyControls = ({data, category, onChange}) => {
         <Grid item xs={4}>
           <Switch 
             name={"access"}
-            checked={data.access ? data.access : null}
-            onChange={(event) => {console.log("event", event.target.checked); onChange(data, event.target.name, event.target.checked)}}
+            defaultChecked={data.access ? data.access : null}
+            onChange={(event) => {
+              handleChange(dataPointName, category, "Access", event.target.checked)
+            }}
           />
         </Grid>
         <Grid item xs={4}>
           <TextField
             label="Base price"
             name={"base_price"}
-            value={data.base_price}
+            defaultValue={data.base_price}
             type="number"
             size="small"
-            onChange={(event) => {onChange(data, event.target.name, event.target.value)}}
+            onChange={(event) => {
+              handleChange(dataPointName, category, "basePrice", event.target.value)
+            }}
           />
         </Grid>
       </Grid>
@@ -37,4 +43,4 @@ const PolicyControls = ({data, category, onChange}) => {
   
   
 
-export default PolicyControls;
+export default PolicyControl;

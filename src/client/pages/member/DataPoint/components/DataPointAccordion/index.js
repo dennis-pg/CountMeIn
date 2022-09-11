@@ -4,38 +4,10 @@ import {
 } from '@mui/material';
 import { ExpandMore } from '@mui/icons-material';
 import PropTypes from 'prop-types';
-import PolicyControls from '../PolicyControls/index';
-import { useManageDataPointsFormContext } from '../../../contexts/ManageDataPointsFormContext';
+import PolicyControl from '../PolicyControl/index';
 
 
 const DataPointAccordion = ({ dataPointName, data, panel, handleAccordionToggle }) => {
-  const [accessControlState, setAccessControlState] = React.useState([]);
-  const { handleChange } = useManageDataPointsFormContext();
-
-  React.useEffect(() => {
-    setAccessControlState(data.access_control);
-  }, [data]);
-
-  React.useEffect(() => {
-    handleChange("access_control", accessControlState);
-  }, [accessControlState]);
-
-  const onChange = (data, key, value) => {
-    setAccessControlState([...accessControlState]
-      .map(object => {
-        if(object.access_name == data.access_name){
-          return({
-            ...object,
-            [key] : value
-          })
-        } else{
-          return object;
-        }
-      })
-    )
-    console.log("Access control state", accessControlState);
-  };
-
   return (
     <Accordion
         sx={{ boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 6px 0 rgba(0, 0, 0, 0.19)' }}
@@ -53,14 +25,14 @@ const DataPointAccordion = ({ dataPointName, data, panel, handleAccordionToggle 
         </AccordionSummary>
         <AccordionDetails>
           {
-            accessControlState
+            data.access_control
             .map(entry => {
               // console.log("entry", entry, entry.access_name);
               return (
-                <PolicyControls 
+                <PolicyControl 
                   data={entry}
+                  dataPointName={dataPointName}
                   category={entry.access_name}
-                  onChange={onChange}
                 />
               );
             })

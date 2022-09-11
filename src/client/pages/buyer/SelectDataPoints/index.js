@@ -52,7 +52,7 @@ const SelectDataPoints = () => {
             margin="normal"
             fullWidth
             id="dataPointsRequired"
-            label="Data Points Required"
+            label="Number of Data Points Required"
             name="dataPointsRequired"
             type="number"
           />

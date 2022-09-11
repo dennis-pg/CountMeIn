@@ -4,7 +4,7 @@ import Layout from '../../../shared/components/Layout';
 import Hero from './hero';
 
 const Landing = () => (
-  <Layout>
+  <Layout noMarginTop={true}>
     <Stack>
       <Hero />
     </Stack>
