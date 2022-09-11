@@ -24,7 +24,6 @@ const MemberProfile = () => {
     return data;
   });
   const [state, setState] = React.useState({ state: undefined });
-  const { currentUser, logout } = useAuth()
   const [genderRef,setGenderRef] = React.useState('');
   const [dateOfBirthRef,setDateOfBirthRef] = React.useState(new Date());
   const [streetAddressRef,setStreetAddressRef] = React.useState('');
