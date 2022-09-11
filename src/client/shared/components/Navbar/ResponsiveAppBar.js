@@ -65,7 +65,8 @@ const ResponsiveAppBar = () => {
     console.log("event: "+option);
     if(option=="Logout")
     {
-      handleLogout()
+      handleLogout();
+      history("/");
     }
     else if(option=="Login")
     {
@@ -98,7 +99,7 @@ const ResponsiveAppBar = () => {
             variant="h6"
             noWrap
             component="a"
-            href="/"
+            onClick={() => {history("/");}}
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
