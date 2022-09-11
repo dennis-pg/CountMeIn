@@ -4,18 +4,20 @@ import {
 } from '@mui/material';
 import PropTypes from 'prop-types';
 
-const DataPointSlider = ({ initialValue, max }) => {
+const DataPointSlider = ({ initialValue, max, onChange }) => {
   const [value, setValue] = React.useState({
     percentage: Math.round(initialValue / max * 100), number: initialValue
   });
 
   const handleSliderChange = (event, newValue) => {
     setValue({ percentage: newValue, number: Math.round(newValue / 100 * max) });
+    onChange(Math.round(newValue / 100 * max));
   };
 
   const handleInputChange = (event) => {
     const inputValue = event.target.value === '' ? '' : Number(event.target.value);
     setValue({ percentage: Math.round((inputValue ?? 0) / max * 100), number: inputValue });
+    onChange(inputValue);
   };
 
   const handleBlur = () => {
@@ -34,6 +36,7 @@ const DataPointSlider = ({ initialValue, max }) => {
       <Grid container spacing={4} alignItems="center" sx={{ width: '100%' }}>
         <Grid item xs={10}>
           <Slider
+            min={1}
             value={value.percentage ?? 0}
             onChange={handleSliderChange}
             aria-labelledby="input-slider"
@@ -62,6 +65,7 @@ const DataPointSlider = ({ initialValue, max }) => {
 DataPointSlider.propTypes = {
   initialValue: PropTypes.number.isRequired,
   max: PropTypes.number.isRequired,
+  onChange: PropTypes.func.isRequired
 };
 
 export default DataPointSlider;
