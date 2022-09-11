@@ -43,7 +43,7 @@ const SelectDataPoints = () => {
       <Layout>
         <Stack alignItems="center" mb={5}>
           <Stack alignItems="center" p={5}>
-            <Typography variant="h2" sx={{ m: 2 }}>Select Data Points For Survey</Typography>
+            <Typography variant="h2" sx={{ m: 2 }}>Select Desired Data Points</Typography>
           </Stack>
           <Typography variant="h4" sx={{ m: 2, mt: 5, mb: 4 }}>Filters</Typography>
           <Filters />

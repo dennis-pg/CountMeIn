@@ -5,11 +5,11 @@ export var user_template={
         {
         'Blood Pressure':false, 
         'Cholesterol':false, 
-        'SGBT':false, 
+        'Blood Glucose':false, 
         'SpO2':false,
         'RBC Count':false, 
-        'SGPT':false,
-        'SGOT':false,
+        'ALT':false,
+        'AST':false,
         'Serum Creatinine':false,
         'HDL-Cholesterol':false,
         'LDL-Cholesterol':false,
@@ -21,11 +21,11 @@ export var user_template={
       {
         'Blood Pressure':false, 
         'Cholesterol':false, 
-        'SGBT':false, 
+        'Blood Glucose':false, 
         'SpO2':false,
         'RBC Count':false, 
-        'SGPT':false,
-        'SGOT':false,
+        'ALT':false,
+        'AST':false,
         'Serum Creatinine':false,
         'HDL-Cholesterol':false,
         'LDL-Cholesterol':false,
@@ -37,11 +37,11 @@ export var user_template={
       {
         'Blood Pressure':false, 
         'Cholesterol':false, 
-        'SGBT':false, 
+        'Blood Glucose':false, 
         'SpO2':false,
         'RBC Count':false, 
-        'SGPT':false,
-        'SGOT':false,
+        'ALT':false,
+        'AST':false,
         'Serum Creatinine':false,
         'HDL-Cholesterol':false,
         'LDL-Cholesterol':false,
@@ -61,7 +61,7 @@ export var user_template={
             "Commercial":0,
             "Government":0
         }, 
-        'SGBT':{
+        'Blood Glucose':{
             "Academia":0,
             "Commercial":0,
             "Government":0
@@ -76,12 +76,12 @@ export var user_template={
             "Commercial":0,
             "Government":0
         }, 
-        'SGPT':{
+        'ALT':{
             "Academia":0,
             "Commercial":0,
             "Government":0
         },
-        'SGOT':{
+        'AST':{
             "Academia":0,
             "Commercial":0,
             "Government":0
