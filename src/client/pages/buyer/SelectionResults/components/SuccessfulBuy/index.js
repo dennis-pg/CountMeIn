@@ -13,8 +13,8 @@ const SuccessfulBuy = ({}) => (
       <Typography variant="h1"> Congratulations! </Typography>
     </Stack>
     <Stack spacing={2} alignItems="center" justifyContent="center">
-      <Typography>Your order has been placed.</Typography>
-      <Typography>The Count Me In team will reach out to you regarding confirmation and payment details.</Typography>
+      <Typography>Your order has been received.</Typography>
+      <Typography>The Count Me In Account specialist will reach out to you within 3 business days</Typography>
     </Stack>
     <MailUs label="For any queries, please contact us here" mailto="mailto:support@count-me-in.com" />
   </Stack>
