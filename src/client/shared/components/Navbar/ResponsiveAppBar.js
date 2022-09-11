@@ -20,9 +20,7 @@ import { useTheme } from '@mui/material';
 import logoSrc from '../../../../../public/images/Logo.svg';
 import { useAuth } from '../../../contexts/AuthContext';
 
-
-const pages = ['FAQ', 'Login'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['Profile', 'Dashboard', 'Login'];
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -30,8 +28,10 @@ const ResponsiveAppBar = () => {
   const theme = useTheme();
   const history = useNavigate();
   const [error, setError] = useState('');
-  const { logout } = useAuth();
+  const { currentUser ,logout } = useAuth();
 
+  const pages = currentUser != null ? ['Dashboard','FAQ', 'Logout'] : ['FAQ', 'Login'];
+  const settings = currentUser != null ? ['Profile', 'Dashboard'] : ['FAQ', 'Login'];
 
   async function handleLogout() {
     setError('');
@@ -39,7 +39,7 @@ const ResponsiveAppBar = () => {
 
     try {
       await logout();
-      history.push('/login');
+      // history('/login');
     } catch (e) {
       setError('Failed to log out');
     }
@@ -69,10 +69,16 @@ const ResponsiveAppBar = () => {
     else if(option=="Login")
     {
       history("/login")
-    } else if(option=="FAQ"){
+    } 
+    else if(option=="FAQ"){
       history("/faq")
-    } else if(option == "Dashboard"){
+    } 
+    else if(option == "Dashboard"){
       history("/manage-data-points");
+    }
+    else if(option == 'Profile')
+    {
+      history("/member-profile");
     }
   }
 

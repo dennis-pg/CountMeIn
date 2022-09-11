@@ -62,17 +62,10 @@ const Login = () => {
               COUNT ME IN
             </Typography>
           </Stack>
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
 
-          <Stack spacing={2} sx={{ m: '2em 5em' }}>
-            <GoogleButton />
-            <FacebookButton />
-          </Stack>
 
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1, textAlign: 'center' }}>
-            <Divider sx={{ mb: 4 }}><Typography sx={{ color: '#AAAAAA' }}>or continue with email</Typography></Divider>
+            <Divider sx={{ mb: 4 }}><Typography sx={{ color: '#AAAAAA' }}>continue with email</Typography></Divider>
             <Email />
           </Box>
         </Box>
