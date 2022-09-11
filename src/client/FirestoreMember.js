@@ -63,6 +63,13 @@ export async function getUserDetails(requestUserId) {
     }
   }
 }
+// ADD FUNCTION
+export function setupUserProfile(requestUserId ) {
+  var user_id={
+    "user_id":requestUserId
+  }
+  memberRef.doc(requestUserId).set(user_id, { merge: true });
+}
 
 // ADD FUNCTION
 export function addUserDetails(requestUserId, data) {

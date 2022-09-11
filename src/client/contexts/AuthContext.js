@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react"
 import { auth } from "../firebase"
 import { updateProfile } from "firebase/auth";
+import { setupUserProfile } from '../FirestoreMember.js';
 
 const AuthContext = React.createContext()
 
@@ -46,6 +47,7 @@ export function AuthProvider({ children }) {
     const unsubscribe = auth.onAuthStateChanged(user => {
       setCurrentUser(user)
       setLoading(false)
+      setupUserProfile(user.uid)
     })
 
     return unsubscribe
