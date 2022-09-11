@@ -4,7 +4,7 @@ import React, {
 import { v4 as uuidv4 } from 'uuid';
 import firebase from './firebase';
 import { useAuth } from './contexts/AuthContext';
-
+import { user_template } from './user_data_template'
 export const memberRef = firebase.firestore().collection('Member');
 
 function getUserMember() {
@@ -60,10 +60,9 @@ export async function getUserDetails(requestUserId) {
 }
 // ADD FUNCTION
 export function setupUserProfile(requestUserId ) {
-  var user_id={
-    "user_id":requestUserId
-  }
-  memberRef.doc(requestUserId).set(user_id, { merge: true });
+
+  user_template["user_id"]=requestUserId
+  memberRef.doc(requestUserId).set(user_template, { merge: true });
 }
 
 export const getUserProfile = async (requestUserId) => {
@@ -153,3 +152,5 @@ function transformDataToFireStore(requestUserId,data) {
 }
 
 export default getUserDetails;
+
+

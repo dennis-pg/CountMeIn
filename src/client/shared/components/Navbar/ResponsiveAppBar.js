@@ -30,8 +30,9 @@ const ResponsiveAppBar = () => {
   const [error, setError] = useState('');
   const { currentUser ,logout } = useAuth();
 
-  const pages = currentUser != null ? ['Dashboard','FAQ', 'Logout'] : ['FAQ', 'Login'];
-  const settings = currentUser != null ? ['Profile', 'Dashboard'] : ['FAQ', 'Login'];
+  const pages = currentUser != null ? (currentUser.displayName == "Member" ? ['Member Dashboard','FAQ', 'Logout'] :['Buyer Dashboard','FAQ', 'Logout'] ) : ['FAQ', 'Login'];
+  const settings = currentUser != null ? (currentUser.displayName == "Member" ? ['Profile', 'Member Dashboard']  :['Profile', 'Buyer Dashboard']  ) : ['FAQ', 'Login'];
+
 
   async function handleLogout() {
     setError('');
@@ -73,8 +74,11 @@ const ResponsiveAppBar = () => {
     else if(option=="FAQ"){
       history("/faq")
     } 
-    else if(option == "Dashboard"){
+    else if(option == "Member Dashboard"){
       history("/manage-data-points");
+    }
+    else if(option == "Buyer Dashboard"){
+      history("/select-data-points");
     }
     else if(option == 'Profile')
     {
