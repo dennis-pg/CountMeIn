@@ -5,7 +5,7 @@ import {
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import Layout from '../../../shared/components/Layout';
-
+import MailUs from '../../../shared/components/Mail/MailUs';
 
 const FaqData = [
   { question: 'What is Count Me In?', answer: 'Count Me In is an application that connects healthcare users with organizations that can use their data to' },
@@ -32,6 +32,7 @@ const Faq = () => {
               setExpanded={setExpanded}
             />
           ))}
+            <MailUs label="Want to know more? Reach us" mailto="mailto:support@count-me-in.com" />
         </Stack>
       </Stack>
     </Layout>

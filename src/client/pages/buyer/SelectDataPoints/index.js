@@ -6,7 +6,7 @@ import * as RandomString from 'randomstring';
 import Layout from '../../../shared/components/Layout';
 import DataPointRow from './DataPointRow';
 import Filters from './Filters';
-
+import MailUs from '../../../shared/components/Mail/MailUs';
 const SelectDataPoints = () => {
   const [state, setState] = React.useState({ dataPointKeys: [RandomString.generate()] });
   const onAdd = (key) => {
@@ -64,6 +64,8 @@ const SelectDataPoints = () => {
             Search
           </Button>
         </Box>
+        <MailUs label="Not finding what you're looking for? Reach us" mailto="mailto:support@count-me-in.com" />
+
       </Stack>
     </Layout>
   );

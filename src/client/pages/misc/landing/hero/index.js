@@ -27,8 +27,8 @@ const Hero = () => (
       md={6}
     >
       <Stack spacing={1} sx={{ ml: 15, pb: 10 }}>
-        <Typography variant="h1">Some catchy</Typography>
-        <Typography variant="h1">tagline .</Typography>
+        <Typography variant="h1">Your Healthcare privacy</Typography>
+        <Typography variant="h1">is our goal</Typography>
       </Stack>
     </Grid>
     <Grid
