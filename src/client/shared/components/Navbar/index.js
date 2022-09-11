@@ -11,8 +11,6 @@ export default function Navbar() {
   return (
     <>
       <ResponsiveAppBar />
-      <h1>{currentUser?.email}</h1>
-      <h2>userType: {currentUser?.displayName}</h2>
       {/* <FirestoreHealthMetrics/> */}
     </>
   );

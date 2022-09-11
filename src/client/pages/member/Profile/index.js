@@ -2,12 +2,14 @@ import * as React from 'react';
 import {
   Grid, Card, Typography, Stack, TextField, Autocomplete, Divider, Button, Box
 } from '@mui/material';
+import { useQuery } from '@tanstack/react-query';
 import { State, City } from 'country-state-city';
 import Layout from '../../../shared/components/Layout';
 import DatePicker from '../../../shared/components/DatePicker/index';
 import { useRef } from "react"
 import { addUserProfile } from '../../../FirestoreMember.js';
-import { useAuth } from "../../../contexts/AuthContext"
+import { useAuth } from '../../../contexts/AuthContext';
+import { getUserProfile } from '../../../FirestoreMember';
 
 const diseaseList = ['Diabetes', 'COVID-19', 'Measles', 'Mumps', 'Rubella', 'Dengue', 'HIV', 'Tuberculosis'];
 const medicineList = [
@@ -16,6 +18,11 @@ const medicineList = [
 
 
 const MemberProfile = () => {
+  const { currentUser, logout } = useAuth()
+  const { isLoading, isFetching, data } = useQuery(['member-profile'], async() => {
+    const data = await getUserProfile(currentUser.uid) ?? {};
+    return data;
+  });
   const [state, setState] = React.useState({ state: undefined });
   const { currentUser, logout } = useAuth()
   const [genderRef,setGenderRef] = React.useState('');
@@ -49,12 +56,9 @@ const MemberProfile = () => {
     ? City.getCitiesOfState('US', State.getStatesOfCountry('US').find(stateObj => stateObj.name === state.state).isoCode)
     : [];
 
+
   function handleSubmit()
   {
-    console.log("handleSubmit Data:",genderRef,dateOfBirthRef,streetAddressRef,addressLine2Ref,cityRef,states);
-    console.log("genderRef: ",genderRef);
-    console.log("dateOfBirthRef: ",dateOfBirthRef);
-    console.log("illnessRef:",illnessRef);
     var profile={
       "profile":
       {
@@ -68,13 +72,11 @@ const MemberProfile = () => {
       "medicine":medicineRef
       }
     }
-    console.log(profile)
-    console.log(currentUser.uid)
     addUserProfile(currentUser.uid,profile);    
     
   }
-
   return (
+    isLoading || isFetching ? <div></div> :
     <Layout>
       <Grid container p={3} spacing={3}>
         <Grid item xs={12} md={6}>
@@ -90,6 +92,7 @@ const MemberProfile = () => {
                 onChange={(event, newValue) => {
                   setGenderRef(newValue
                   );}}
+                defaultValue={data.gender}
                 options={['Male', 'Female', 'Transgender', 'Prefer not to say']}
                 renderInput={params => <TextField {...params} label="Gender" />}
               />
@@ -99,11 +102,12 @@ const MemberProfile = () => {
                   setDateOfBirthRef(newValue
                   );}}
                 label="Date of birth"
+
               />
               <Divider />
               <TextField
                 margin="normal"
-                required
+                defaultValue={data.streetAddress}
                 fullWidth
                 id="streetAddress"
                 label="Street Address"
@@ -115,7 +119,7 @@ const MemberProfile = () => {
               />
               <TextField
                 margin="normal"
-                required
+                defaultValue={data.addressLine2}
                 fullWidth
                 id="addressLine2"
                 label="Address Line 2"
@@ -127,6 +131,7 @@ const MemberProfile = () => {
               />
               <Autocomplete
                 disablePortal
+                defaultValue={data.state}
                 id="state"
                 name="state"
                 options={states.map(stateObj => stateObj.name)}
@@ -135,6 +140,7 @@ const MemberProfile = () => {
               />
               <Autocomplete
                 disablePortal
+                defaultValue={data.city}
                 id="city"
                 name="city"
                 inputRef={cityRef}
@@ -179,6 +185,7 @@ const MemberProfile = () => {
                 onChange={(event, newValue) => 
                 setIllnessRef(newValue)
                 }
+                defaultValue={data.illnesses}
                 // getOptionLabel={(option) => option.title}
                 renderInput={params => (
                   <TextField
@@ -208,6 +215,7 @@ const MemberProfile = () => {
                 onChange={(event, newValue) => 
                   setMedicineRef(newValue)
                   }
+                defaultValue={data.medications}
                 // getOptionLabel={(option) => option.title}
                 renderInput={params => (
                   <TextField

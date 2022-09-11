@@ -13,7 +13,7 @@ const DataPointPrice = ({
     <CardContent>
       <Stack spacing={2}>
         <Stack direction="row" sx={{ width: '100%', textAlign: 'center' }}>
-          <Typography variant="body" sx={{ paddingX: 3 }}>{`${name}`}</Typography>
+          <Typography sx={{ paddingX: 3 }}>{`${name}`}</Typography>
         </Stack>
         <Grid container spacing={3}>
           <Grid item xs={6}>

@@ -3,77 +3,24 @@ import {
   Stack, Typography, Grid, TextField, Button, Box
 } from '@mui/material';
 import { ExpandMore, FileCopy } from '@mui/icons-material';
-
 import Layout from '../../../shared/components/Layout';
 import DataPointAccordion from './components/DataPointAccordion/index';
 import DefaultDataPointValuesModal from './components/DefaultDataModal/index';
 import { ManageDataPointsContextFormProvider } from '../contexts/ManageDataPointsFormContext';
 import { getUserDetails } from '../../../FirestoreMember.js';
 import { addUserDetails } from '../../../FirestoreMember.js';
-
-const dataPointsObjArray = [{
-    "data_point_name": 'Blood Pressure',
-    "access_control": [{
-        "access_name": "Government",
-        "access": true,
-        "base_price": 100
-      },{
-        "access_name": "Commercial",
-        "access": true,
-        "base_price": 200
-      },{
-        "access_name": "Academia",
-        "access": false,
-        "base_price": 50
-      }
-    ],
-  },
-  {
-    "data_point_name": 'SGBT',
-    "access_control": [{
-        "access_name": "Government",
-        "access": true,
-        "base_price": 400
-      },{
-        "access_name": "Commercial",
-        "access": false,
-        "base_price": 200
-      },{
-        "access_name": "Academia",
-        "access": false,
-        "base_price": 50
-      }
-    ],
-  },
-  {
-    "data_point_name": 'Cholestrol',
-    "access_control": [{
-        "access_name": "Government",
-        "access": false,
-        "base_price": 100
-      },{
-        "access_name": "Commercial",
-        "access": true,
-        "base_price": 500
-      },{
-        "access_name": "Academia",
-        "access": false,
-        "base_price": 50
-      }
-    ],
-  },
-]; 
+import { useAuth } from '../../../contexts/AuthContext';
   
-const dataPointsList = ['SpO2', 'RBC Count', 'SGPT', 'SGOT', 'Serum Creatinine', 'HDL-Cholestorol', 'LDL-Cholestorol', 'TSH'];
-
 const ManageDataPoints = () => {
-  const [formState, setFormState] = React.useState({data: dataPointsObjArray});
+  const [formState, setFormState] = React.useState({data: []});
   const [state, setState] = React.useState({ modalOpen: false, filterText: '', panel: undefined });
   const handleOpen = () => setState({ ...state, modalOpen: true });
   const handleClose = () => setState({ ...state, modalOpen: false });
   const handleAccordionToggle = text => setState({
     ...state, panel: state.panel === text ? undefined : text
   });
+  // const { currentUser } = useAuth();
+  const currentUser = {uid: "jghj21434"};
 
   const handleChange = (key, newValue) => {
     // const error = validateInput(name, newValue);
@@ -83,13 +30,14 @@ const ManageDataPoints = () => {
  const handleSubmit = () =>
  {
   console.log("formState: ",formState);
-  addUserDetails("jghj21434",formState)
+  addUserDetails(currentUser?.uid,formState)
  }
-
 
  React.useEffect(() => {
   const fetchData = async () => {
-    console.log("kfjhwsdefjwef", await getUserDetails("jghj21434"));
+    const userDetails = await getUserDetails(currentUser?.uid);
+    console.log("kfjhwsdefjwef", userDetails);
+    setFormState({...formState, ["data"]: userDetails});
   }
   fetchData()
     .catch(console.error);
@@ -98,11 +46,13 @@ const ManageDataPoints = () => {
   console.log("updated formState", formState);
  }, [formState]);
 
-  console.log(state.panel);
+  console.log("Panel",state.panel, currentUser?.uid);
   return (
     <Layout>
       <Stack>
-        <Typography variant="h2" sx={{ m: 2 }}>Manage My Data Points</Typography>
+        <Stack alignItems="center" p={5}>
+          <Typography variant="h2" sx={{ m: 2 }}>Manage My Data Points</Typography>
+        </Stack>
         <Stack direction="row" m="2em 3em" justifyContent="space-between">
           <Stack spacing={2} direction="row" alignItems="start">
             <Box>
@@ -170,7 +120,6 @@ const ManageDataPoints = () => {
                     <DataPointAccordion
                       dataPointName={entry["data_point_name"]}
                       data={entry}
-                      access_control_key={"access_control"}
                       panel={state.panel}
                       handleAccordionToggle={handleAccordionToggle}
                     />
