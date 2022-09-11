@@ -72,7 +72,7 @@ export const setupUserProfile = async (requestUserId) => {
 export const getUserProfile = async (requestUserId) => {
   const userData = await memberRef.doc(requestUserId).get();
   const data = userData.data();
-  return data.Profile;
+  return data.profile;
 };
 
 export const getDefaultPolicy = async (requestUserId) => {

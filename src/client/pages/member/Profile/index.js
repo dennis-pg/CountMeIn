@@ -110,7 +110,7 @@ const MemberProfile = () => {
               <Divider />
               <TextField
                 margin="normal"
-                defaultValue={data.streetAddress}
+                defaultValue={data.address}
                 fullWidth
                 id="streetAddress"
                 label="Street Address"
@@ -122,7 +122,7 @@ const MemberProfile = () => {
               />
               <TextField
                 margin="normal"
-                defaultValue={data.addressLine2}
+                defaultValue={data.address_second_line}
                 fullWidth
                 id="addressLine2"
                 label="Address Line 2"
