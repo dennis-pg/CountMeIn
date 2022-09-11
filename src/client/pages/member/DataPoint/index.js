@@ -67,18 +67,6 @@ const ManageDataPoints = () => {
               </Button>
 
               
-              <Button
-                variant="outlined"
-                startIcon={<FileCopy />}
-                fullWidth={false}
-                type="submit"
-                fullWidth
-                onClick={() => {
-                  handleSubmit();
-                }}
-              >
-                Submit
-             </Button>
               <DefaultDataPointValuesModal open={state.modalOpen} handleClose={handleClose} />
             </Box>
           </Stack>
