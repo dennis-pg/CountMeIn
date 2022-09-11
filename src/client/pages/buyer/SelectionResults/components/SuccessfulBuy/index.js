@@ -3,6 +3,7 @@ import {
 } from '@mui/material';
 import * as React from 'react';
 import { CheckCircleRounded } from '@mui/icons-material';
+import MailUs from '../../../../../shared/components/Mail/MailUs';
 
 const SuccessfulBuy = ({}) => (
   
@@ -15,6 +16,7 @@ const SuccessfulBuy = ({}) => (
       <Typography>Your order has been placed.</Typography>
       <Typography>The Count Me In team will reach out to you regarding confirmation and payment details.</Typography>
     </Stack>
+    <MailUs label="For any queries, please contact us here" mailto="mailto:support@count-me-in.com" />
   </Stack>
 );
   

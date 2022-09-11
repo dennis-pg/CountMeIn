@@ -1,19 +1,24 @@
+import { useTheme } from "@emotion/react";
 import React from "react";
 import { Link } from "react-router-dom";
 
 
-const linkStyle = {
-  margin: "1rem",
-  textDecoration: "None",
-  color: 'blue',
-  fontFamily: 'Thiccboi',
+const linkStyle = (theme) => {
+  return{
+    margin: "1rem",
+    textDecoration: "underline",
+    color: theme.palette.primary.main,
+    fontFamily: 'Thiccboi',
+  };  
 };
 
 const MailUs = ({ mailto, label }) => {
+    const theme = useTheme();
+    
     return (
         <Link
             to='#'
-            style={linkStyle}
+            style={linkStyle(theme)}
             onClick={(e) => {
                 window.location.href = mailto;
                 e.preventDefault();
