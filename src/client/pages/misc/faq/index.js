@@ -132,6 +132,7 @@ const FaqData = [
 
 const Faq = () => {
   const [expanded, setExpanded] = React.useState(-1);
+
   return (
     <Layout>
       <Stack spacing={10} alignItems="center" sx={{ width: '100vw', paddingTop: 10 }}>
@@ -156,6 +157,9 @@ const QaCard = ({
   question, answer, links, index, expanded, setExpanded
 }) => {
   const theme = useTheme();
+  const openInNewTab = url => {
+    window.open(url, '_blank', 'noopener,noreferrer');
+  };
   return (
     <Card
       sx={{ boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 6px 0 rgba(0, 0, 0, 0.19)' }}
@@ -191,7 +195,7 @@ const QaCard = ({
                 {
                   links ? links.map( link => <Stack direction="row" alignItems="center" spacing={2}>
                       <ArrowForward />
-                      <Link to={link.href} style={linkStyle(theme)}>
+                      <Link onClick={() => {openInNewTab(link.href)}} to={"#"} style={linkStyle(theme)}>
                         {link.text}
                       </Link>
                     </Stack>
